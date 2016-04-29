@@ -7,8 +7,159 @@
   </head>
 
   <body>
-    
+    <div id="data" class="container-fluid">
+      <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+          <h1 id="siteTitle">posdaJS</h1>
+          <hr>
+          <div id="modeSelect" class="row">
+            <div class="col-xs-1">
+              <label class="selectLabel" for="modeSelect">Mode: </label>
+            </div>
+            <div class="col-xs-4">
+              <select class="form-control" id="modeSelect">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+            </div>
+            <div class="col-xs-1 col-xs-offset-1">
+              <label class="selectLabel" for="dataSelect">Select: </label>
+            </div>
+            <div class="col-xs-4">
+              <select class="form-control" id="dataSelect">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+            </div>
+          </div>
+          <hr>
+          <h2>TABLE NAME</h2>
+          <h3>Table code</h3>
+          <div id="parameters" class="well">
+
+            <div class="row">
+              <div class="col-xs-2"><center><p class="parameterTitle">Entity</p></center></div>
+              <div class="col-xs-10"><center><p class="parameterTitle">Module</p></center></div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-2">
+                <p class="parameterGroup">Equipment</p>
+              </div>
+              <div class="col-xs-10">
+                <label><input type="checkbox">General Equipment</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-2">
+                <p class="parameterGroup">Frame of Reference</p>
+              </div>
+              <div class="col-xs-10">
+                <label><input type="checkbox">Frame of Reference</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-2">
+                <p class="parameterGroup">Study</p>
+              </div>
+              <div class="col-xs-10">
+                <label><input type="checkbox">Clinical Trial Study; </label>
+                <label><input type="checkbox">General Study; </label>
+                <label><input type="checkbox">Patient Study</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-2">
+                <p class="parameterGroup">Series</p>
+              </div>
+              <div class="col-xs-10">
+                <label><input type="checkbox">Clinal Trial Series; </label>
+                <label><input type="checkbox">General Series</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-2">
+                <p class="parameterGroup">Patient</p>
+              </div>
+              <div class="col-xs-10">
+                <label><input type="checkbox">Clinal Trial Subject; </label>
+                <label><input type="checkbox">Patient</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-2">
+                <p class="parameterGroup">Image</p>
+              </div>
+              <div class="col-xs-10">
+                <label><input type="checkbox">CT Image; </label>
+                <label><input type="checkbox">Common Instance Reference; </label>
+                <label><input type="checkbox">Contrast/Bolus; </label>
+                <label><input type="checkbox">Device; </label>
+                <label><input type="checkbox">General Imaging; </label>
+                <label><input type="checkbox">Image Pixel; </label>
+                <label><input type="checkbox">Image Plane; </label>
+                <label><input type="checkbox">Overlay Plane; </label>
+                <label><input type="checkbox">SOP Common; </label>
+                <label><input type="checkbox">Speciment; </label>
+                <label><input type="checkbox">VOI LUT</label>
+              </div>
+            </div>
+
+        </div>
+
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th>Element</th>
+              <th>Entity</th>
+              <th>Module</th>
+              <th>Usage</th>
+              <th>Req</th>
+              <th>Name</th>
+              <th>Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Row 1</td>
+              <td>Filler</td>
+              <td>Filler</td>
+              <td>Filler</td>
+              <td>Filler</td>
+              <td>Filler</td>
+              <td>Filler</td>
+            </tr>
+            <tr>
+              <td>Row 2</td>
+              <td>Filler</td>
+              <td>Filler</td>
+              <td>Filler</td>
+              <td>Filler</td>
+              <td>Filler</td>
+              <td>Filler</td>
+            </tr>
+          </tbody>
+        </table>
+
+        </div>
+      </div>
+      <div id="renderedTable">
+      </div>
+    </div>
   </body>
+
+
+
+
 
   <footer>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>

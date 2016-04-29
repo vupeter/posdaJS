@@ -1,0 +1,21 @@
+.parameterGroup {
+  font-weight: bold;
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+label {
+  font-weight: normal;
+}
+#siteTitle {
+  font-weight: bold;
+}
+.parameterTitle{
+  font-weight: 800;
+  font-size: 19px;
+  padding-bottom: 10px;
+}
+.selectLabel{
+  font-weight: bold;
+  font-size:16px;
+  margin-top: 5px;
+}
