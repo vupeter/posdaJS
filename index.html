@@ -6,7 +6,7 @@
     <link href="css/style.css" rel="stylesheet">
   </head>
 
-  <body>
+  <body ng-app="posdaJS" ng-controller="posdaCtrl">
     <div id="data" class="container-fluid">
       <div class="row">
         <div class="col-xs-10 col-xs-offset-1">
@@ -14,31 +14,30 @@
           <hr>
           <div id="modeSelect" class="row">
             <div class="col-xs-1">
-              <label class="selectLabel" for="modeSelect">Mode: </label>
+              <label class="selectLabel">Mode: </label>
             </div>
             <div class="col-xs-4">
-              <select class="form-control" id="modeSelect">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
+              <select class="form-control" ng-model="modeSelect" ng-change="changeMode()">
+                <option>svg</option>
+                <option>book</option>
+                <option>Composite IODs</option>
               </select>
             </div>
+          <div ng-show="modeSelected">
             <div class="col-xs-1 col-xs-offset-1">
-              <label class="selectLabel" for="dataSelect">Select: </label>
+              <label class="selectLabel">Select: </label>
             </div>
             <div class="col-xs-4">
-              <select class="form-control" id="dataSelect">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
+              <select class="form-control" id="dataSelect" ng-model="tableSelect" ng-change="changeData()">
+                <option ng-repeat="x in dataSelect.table">{{x.Title}}</option>
               </select>
             </div>
           </div>
+          </div>
           <hr>
-          <h2>TABLE NAME</h2>
-          <h3>Table code</h3>
+          <div ng-show="tableSelected">
+          <h2>{{tableSelect}}</h2>
+          <h3>{{tableName}}</h3>
           <div id="parameters" class="well">
 
             <div class="row">
@@ -115,44 +114,35 @@
             </div>
 
         </div>
-
-        <table class="table table-hover table-bordered">
-          <thead>
-            <tr>
-              <th>Element</th>
-              <th>Entity</th>
-              <th>Module</th>
-              <th>Usage</th>
-              <th>Req</th>
-              <th>Name</th>
-              <th>Comments</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Row 1</td>
-              <td>Filler</td>
-              <td>Filler</td>
-              <td>Filler</td>
-              <td>Filler</td>
-              <td>Filler</td>
-              <td>Filler</td>
-            </tr>
-            <tr>
-              <td>Row 2</td>
-              <td>Filler</td>
-              <td>Filler</td>
-              <td>Filler</td>
-              <td>Filler</td>
-              <td>Filler</td>
-              <td>Filler</td>
-            </tr>
-          </tbody>
-        </table>
+        <div id="renderedTable">
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th ng-click="changeOrderBy('element')">Element</th>
+                <th ng-click="changeOrderBy('entity')">Entity</th>
+                <th ng-click="changeOrderBy('module')">Module</th>
+                <th ng-click="changeOrderBy('usage')">Usage</th>
+                <th ng-click="changeOrderBy('req')">Req</th>
+                <th ng-click="changeOrderBy('name')">Name</th>
+                <th ng-click="changeOrderBy('desc')">Comments</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="x in tableData | orderBy:orderByThis">
+                <td>{{x.element}}</td>
+                <td>{{x.entity}}</td>
+                <td>{{x.module}}</td>
+                <td>{{x.usage}}</td>
+                <td>{{x.req}}</td>
+                <td>{{x.name}}</td>
+                <td>{{x.desc}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         </div>
       </div>
-      <div id="renderedTable">
       </div>
     </div>
   </body>
@@ -162,7 +152,10 @@
 
 
   <footer>
+    <script src="js/jquery-2.2.3.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="js/jquery-2.2.3.min"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/require.min.js"></script>
+    <script src="js/app.js"></script>
   </footer>
 </html>
