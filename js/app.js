@@ -107,4 +107,22 @@ app.controller("posdaCtrl", function ($scope, $http) {
     }
     return row;
   }
+
+  $scope.selectAll = function(){
+    for(i=0;i<$scope.modules.length;i++){
+      for(n=0;n<$scope.modules[i].length;n++){
+        $scope.modules[i][n].selected = true;
+      }
+    }
+    $scope.filterModule();
+  }
+
+  $scope.deselectAll = function(){
+    for(i=0;i<$scope.modules.length;i++){
+      for(n=0;n<$scope.modules[i].length;n++){
+        $scope.modules[i][n].selected = false;
+      }
+    }
+    $scope.filterModule();
+  }
 });

@@ -51,6 +51,21 @@
                 <label ng-repeat="n in modules[$index]"><input type="checkbox" ng-model="n.selected" ng-click="filterModule(n.name)"></input>{{n.name}}&nbsp;&nbsp;</label>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-xs-offset-4 col-xs-2">
+                <center>
+                  <button class="btn" ng-click="selectAll()">Select all</button>
+                </center>
+              </div>
+              <div class="col-xs-2">
+                <center>
+                  <center>
+                    <button class="btn" ng-click="deselectAll()">Deselect all</button>
+                  </center>
+                </center>
+              </div>
+            </div>
         </div>
 
         <div class="input-group">
