@@ -18,8 +18,6 @@
             </div>
             <div class="col-xs-4">
               <select class="form-control" ng-model="modeSelect" ng-change="changeMode()">
-                <option>svg</option>
-                <option>book</option>
                 <option>Composite IODs</option>
               </select>
             </div>
@@ -45,75 +43,21 @@
               <div class="col-xs-10"><center><p class="parameterTitle">Module</p></center></div>
             </div>
 
-            <div class="row">
-              <div class="col-xs-2">
-                <p class="parameterGroup">Equipment</p>
+            <div class="row" ng-repeat="x in entities track by $index">
+              <div class="col-xs-3">
+                <label class="parameterGroup"><input type="checkbox" ng-click="filterEntity($index)" checked></input>{{x}}</label>
               </div>
-              <div class="col-xs-10">
-                <label><input type="checkbox">General Equipment</label>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-xs-2">
-                <p class="parameterGroup">Frame of Reference</p>
-              </div>
-              <div class="col-xs-10">
-                <label><input type="checkbox">Frame of Reference</label>
+              <div class="col-xs-9">
+                <label ng-repeat="n in modules[$index]"><input type="checkbox" ng-model="n.selected" ng-click="filterModule(n.name)"></input>{{n.name}}&nbsp;&nbsp;</label>
               </div>
             </div>
-
-            <div class="row">
-              <div class="col-xs-2">
-                <p class="parameterGroup">Study</p>
-              </div>
-              <div class="col-xs-10">
-                <label><input type="checkbox">Clinical Trial Study; </label>
-                <label><input type="checkbox">General Study; </label>
-                <label><input type="checkbox">Patient Study</label>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-xs-2">
-                <p class="parameterGroup">Series</p>
-              </div>
-              <div class="col-xs-10">
-                <label><input type="checkbox">Clinal Trial Series; </label>
-                <label><input type="checkbox">General Series</label>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-xs-2">
-                <p class="parameterGroup">Patient</p>
-              </div>
-              <div class="col-xs-10">
-                <label><input type="checkbox">Clinal Trial Subject; </label>
-                <label><input type="checkbox">Patient</label>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-xs-2">
-                <p class="parameterGroup">Image</p>
-              </div>
-              <div class="col-xs-10">
-                <label><input type="checkbox">CT Image; </label>
-                <label><input type="checkbox">Common Instance Reference; </label>
-                <label><input type="checkbox">Contrast/Bolus; </label>
-                <label><input type="checkbox">Device; </label>
-                <label><input type="checkbox">General Imaging; </label>
-                <label><input type="checkbox">Image Pixel; </label>
-                <label><input type="checkbox">Image Plane; </label>
-                <label><input type="checkbox">Overlay Plane; </label>
-                <label><input type="checkbox">SOP Common; </label>
-                <label><input type="checkbox">Speciment; </label>
-                <label><input type="checkbox">VOI LUT</label>
-              </div>
-            </div>
-
         </div>
+
+        <div class="input-group">
+          <span class="input-group-addon">Search</span>
+          <input type="text" class="form-control" ng-model="tableSearch" placeholder="Enter search query here." aria-describedby="sizing-addon2">
+        </div>
+
         <div id="renderedTable">
           <table class="table table-hover table-bordered">
             <thead>
@@ -128,7 +72,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="x in tableData | orderBy:orderByThis">
+              <tr ng-repeat="x in tableData | orderBy:orderByThis | filter:tableSearch | filter: modulesChecked">
                 <td>{{x.element}}</td>
                 <td>{{x.entity}}</td>
                 <td>{{x.module}}</td>
