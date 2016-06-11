@@ -9,16 +9,19 @@ app.controller("posdaCtrl", function ($scope, $http) {
     case "svg":
         require(['lib/json/mode/svg.js'], function(){
           $scope.dataSelect = dataList;
+          $scope.$apply();
         });
         break;
     case "book":
         require(['lib/json/mode/book.js'], function(){
           $scope.dataSelect = dataList;
+          $scope.$apply();
         });
         break;
     case "Composite IODs":
         require(['lib/json/mode/iod.js'], function(){
           $scope.dataSelect = dataList;
+          $scope.$apply();
         });
         break;
     default:
