@@ -2,11 +2,13 @@ var app = angular.module('posdaJS', []);
 
 app.controller("posdaCtrl", function ($scope, $http) {
 
+  $scope.showReq3 = false;
+
   $scope.changeMode = function(){
     switch($scope.modeSelect) {
     case "svg":
         require(['lib/json/mode/svg.js'], function(){
-          $scope.dataSelect = dataList;;
+          $scope.dataSelect = dataList;
         });
         break;
     case "book":
@@ -45,13 +47,13 @@ app.controller("posdaCtrl", function ($scope, $http) {
       //Test tabulate
       for(var dataRow in iodData){
         var dataRowMod = iodData[dataRow];
-        dataRowMod['element'] = dataRow;
+        dataRowMod.element = dataRow;
         $scope.tableData.push(dataRowMod);
 
           //Entity+module rendering starts here
             var entityExists = false;
             for (i=0;i<$scope.entities.length;i++){
-              if (dataRowMod.entity == $scope.entities[i]){
+              if (dataRowMod.entity == $scope.entities[i].name){
                 entityExists = true;
                 var moduleExists = false;
                 for (n=0;n<$scope.modules[i].length;n++){
@@ -60,14 +62,14 @@ app.controller("posdaCtrl", function ($scope, $http) {
                     break;
                   }
                 }
-                if (!moduleExists && dataRowMod.module != undefined){
+                if (!moduleExists && dataRowMod.module !== undefined){
                   $scope.modules[i].push({name:dataRowMod.module,selected:true});
                 }
                 break;
               }
             }
-            if(!entityExists && dataRowMod.entity != undefined){
-              $scope.entities.push(dataRowMod.entity);
+            if(!entityExists && dataRowMod.entity !== undefined){
+              $scope.entities.push({name:dataRowMod.entity,selected:true});
               $scope.modules.push([]);
               $scope.modules[$scope.entities.length-1].push({name:dataRowMod.module,selected:true});
             }
@@ -77,36 +79,43 @@ app.controller("posdaCtrl", function ($scope, $http) {
    $scope.filterModule();
    $scope.$apply();
     });
-  }
+  };
 
   $scope.changeOrderBy = function(x) {
     $scope.orderByThis = x;
-  }
+  };
 
-  $scope.filterEntity = function(p){
+  $scope.filterEntity = function(p,q){
     for(i=0;i<$scope.modules[p].length;i++){
-      $scope.modules[p][i].selected = !$scope.modules[p][i].selected;
+      $scope.modules[p][i].selected = q;
     }
     $scope.filterModule();
-  }
+  };
 
   $scope.filterModule = function(){
     $scope.moduleFilter = [];
     for(i=0;i<$scope.modules.length;i++){
       for(n=0;n<$scope.modules[i].length;n++){
-        if($scope.modules[i][n].selected == true){
+        if($scope.modules[i][n].selected === true){
           $scope.moduleFilter.push($scope.modules[i][n].name);
         }
       }
     }
-  }
+  };
 
   $scope.modulesChecked = function(row){
     if ($.inArray(row.module, $scope.moduleFilter) < 0){
       return;
     }
     return row;
-  }
+  };
+
+  $scope.filterReq3 = function(row){
+    if (row.req == 3 && $scope.showReq3 === false){
+      return;
+    }
+    return row;
+  };
 
   $scope.selectAll = function(){
     for(i=0;i<$scope.modules.length;i++){
@@ -114,8 +123,11 @@ app.controller("posdaCtrl", function ($scope, $http) {
         $scope.modules[i][n].selected = true;
       }
     }
+    for(i=0;i<$scope.entities.length;i++){
+      $scope.entities[i].selected = true;
+    }
     $scope.filterModule();
-  }
+  };
 
   $scope.deselectAll = function(){
     for(i=0;i<$scope.modules.length;i++){
@@ -123,6 +135,9 @@ app.controller("posdaCtrl", function ($scope, $http) {
         $scope.modules[i][n].selected = false;
       }
     }
+    for(i=0;i<$scope.entities.length;i++){
+      $scope.entities[i].selected = false;
+    }
     $scope.filterModule();
-  }
+  };
 });
