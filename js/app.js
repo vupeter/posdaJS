@@ -1,6 +1,6 @@
 var app = angular.module('posdaJS', []);
 
-app.controller("posdaCtrl", function ($scope, $http) {
+app.controller("posdaCtrl", function ($scope) {
 
   $scope.showReq3 = false;
 
@@ -33,25 +33,23 @@ app.controller("posdaCtrl", function ($scope, $http) {
   $scope.commentRender = function(input,comment){
     if(input instanceof Array){
         for(i=0;i<input.length;i++){
-          comment += $scope.commentRender(input[i], comment);
+          comment = $scope.commentRender(input[i], comment);
         }
     } else if (input instanceof Object){
-      if(input.el == "note"){
-        $scope.commentRender(input.content,comment);
-      } else if (input.el == "para"){
-
+      if(input.el == "note" | input.el == "itemizedlist" | input.el == "orderedlist" | input.el == "para"){
+        comment = $scope.commentRender(input.content,comment);
+      } else if (input.el == "listitem"){
+        //console logs this error: Uncaught RangeError: Invalid string length
+        //comment = $scope.commentRender(input.content,comment);
       } else if (input.el == "xref"){
         comment += input.attrs.linkend;
       } else if (input.el == "olink"){
         comment += input.attrs.targetdoc;
       } else if (input.el == "subscript"){
-
-      } else if (input.el == "itemizedlist"){
-
-      } else if (input.el == "orderedlist"){
-
+        //doesn't seem like posda does anything with this
       } else if (input.type == "variablelist"){
-
+        //something wrong here, debug file available
+        //comment = $scope.commentRender(input.list,comment);
       } else {
         console.log(input);
       }
@@ -82,10 +80,6 @@ app.controller("posdaCtrl", function ($scope, $http) {
       for(var dataRow in iodData){
         var dataRowMod = iodData[dataRow];
         dataRowMod.element = dataRow;
-        //Comment rendering
-        if(dataRowMod.element == "(0010,2210)"){
-          console.log(dataRowMod.desc);
-        }
         dataRowMod.desc = $scope.commentRender(dataRowMod.desc,"");
         $scope.tableData.push(dataRowMod);
 
