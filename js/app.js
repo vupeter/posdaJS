@@ -30,6 +30,38 @@ app.controller("posdaCtrl", function ($scope, $http) {
     $scope.modeSelected = true;
   };
 
+  $scope.commentRender = function(input,comment){
+    if(input instanceof Array){
+        for(i=0;i<input.length;i++){
+          comment += $scope.commentRender(input[i], comment);
+        }
+    } else if (input instanceof Object){
+      if(input.el == "note"){
+        $scope.commentRender(input.content,comment);
+      } else if (input.el == "para"){
+
+      } else if (input.el == "xref"){
+        comment += input.attrs.linkend;
+      } else if (input.el == "olink"){
+        comment += input.attrs.targetdoc;
+      } else if (input.el == "subscript"){
+
+      } else if (input.el == "itemizedlist"){
+
+      } else if (input.el == "orderedlist"){
+
+      } else if (input.type == "variablelist"){
+
+      } else {
+        console.log(input);
+      }
+    } else {
+      comment += input;
+    }
+    return comment;
+  };
+
+
   $scope.changeData = function(){
     var filename;
     var iodData;
@@ -46,11 +78,15 @@ app.controller("posdaCtrl", function ($scope, $http) {
     var filepath = $scope.dataSelect.path + $scope.dataSelect.prefix + filename + $scope.dataSelect.suffix;
     require([filepath], function(){
       iodData = data.tags;
-
       //Test tabulate
       for(var dataRow in iodData){
         var dataRowMod = iodData[dataRow];
         dataRowMod.element = dataRow;
+        //Comment rendering
+        if(dataRowMod.element == "(0010,2210)"){
+          console.log(dataRowMod.desc);
+        }
+        dataRowMod.desc = $scope.commentRender(dataRowMod.desc,"");
         $scope.tableData.push(dataRowMod);
 
           //Entity+module rendering starts here
