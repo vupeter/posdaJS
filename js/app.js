@@ -54,11 +54,13 @@ app.controller("posdaCtrl", function ($scope) {
         //doesn't seem like posda does anything with this
       } else if (input.type == "variablelist"){
         comment = $scope.commentRender(input.list,comment); //this works too
-        console.log(input.list);
       } else {
-        //console.log(input);
+        console.log(input);
       }
     } else {
+      if(input === null){
+        input = "\r\n";
+      }
       comment += input;
     }
     return comment;

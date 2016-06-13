@@ -19,3 +19,6 @@ label {
   font-size:16px;
   margin-top: 5px;
 }
+pre{
+    white-space: pre-line;
+}
