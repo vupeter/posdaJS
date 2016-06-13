@@ -66,6 +66,13 @@ app.controller("posdaCtrl", function ($scope) {
     return comment;
   };
 
+  $scope.getFromDataElement = function(tag, thing){
+    for(i=0;i<dataElement.length;i++){
+      if(tag == dataElement[i].Tag){
+        return dataElement[i][thing];
+      }
+    }
+  };
 
   $scope.changeData = function(){
     var filename;
@@ -81,12 +88,14 @@ app.controller("posdaCtrl", function ($scope) {
       }
     }
     var filepath = $scope.dataSelect.path + $scope.dataSelect.prefix + filename + $scope.dataSelect.suffix;
-    require([filepath], function(){
+    require([filepath, "lib/json/book/dicomDataElement"], function(){
       iodData = data.tags;
       //Test tabulate
       for(var dataRow in iodData){
         var dataRowMod = iodData[dataRow];
         dataRowMod.element = dataRow;
+        dataRowMod.vr = $scope.getFromDataElement(dataRowMod.element,"VR");
+        dataRowMod.vm = $scope.getFromDataElement(dataRowMod.element,"VM");
         dataRowMod.desc = $scope.commentRender(dataRowMod.desc,"");
         $scope.tableData.push(dataRowMod);
 
@@ -114,10 +123,9 @@ app.controller("posdaCtrl", function ($scope) {
               $scope.modules[$scope.entities.length-1].push({name:dataRowMod.module,selected:true});
             }
           }
-
-   $scope.tableSelected = true;
-   $scope.filterModule();
-   $scope.$apply();
+      $scope.tableSelected = true;
+      $scope.filterModule();
+      $scope.$apply();
     });
   };
 

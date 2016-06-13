@@ -55,15 +55,28 @@
             <div class="row">
               <div class="col-xs-offset-3 col-xs-2">
                 <center>
-                  <label class="parameterGroup"><input type="checkbox" ng-model="showReq3" />Show Req 3</label>
+                  <label class="parameterGroup"><input type="checkbox" ng-model="vrShow" />Show VR</label>
                 </center>
               </div>
               <div class="col-xs-2">
                 <center>
-                  <button class="btn" ng-click="selectAll()">Select all</button>
+                  <label class="parameterGroup"><input type="checkbox" ng-model="vmShow" />Show VM</label>
                 </center>
               </div>
               <div class="col-xs-2">
+                <center>
+                  <label class="parameterGroup"><input type="checkbox" ng-model="showReq3" />Show Req 3</label>
+                </center>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-offset-3 col-xs-3">
+                <center>
+                  <button class="btn" ng-click="selectAll()">Select all</button>
+                </center>
+              </div>
+              <div class="col-xs-3">
                 <center>
                   <center>
                     <button class="btn" ng-click="deselectAll()">Deselect all</button>
@@ -87,6 +100,8 @@
                 <th ng-click="changeOrderBy('module')">Module</th>
                 <th ng-click="changeOrderBy('usage')">Usage</th>
                 <th ng-click="changeOrderBy('req')">Req</th>
+                <th ng-click="changeOrderBy('req')" ng-show="vrShow">VR</th>
+                <th ng-click="changeOrderBy('req')" ng-show="vmShow">VM</th>
                 <th ng-click="changeOrderBy('name')">Name</th>
                 <th ng-click="changeOrderBy('desc')">Comments</th>
               </tr>
@@ -98,6 +113,8 @@
                 <td>{{x.module}}</td>
                 <td>{{x.usage}}</td>
                 <td>{{x.req}}</td>
+                <td ng-show="vrShow">{{x.vr}}</td>
+                <td ng-show="vmShow">{{x.vm}}</td>
                 <td>{{x.name}}</td>
                 <td><pre>
                   {{x.desc}}
