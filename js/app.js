@@ -74,6 +74,25 @@ app.controller("posdaCtrl", function ($scope) {
     }
   };
 
+  $scope.getVRVM = function(){
+    require(["lib/json/book/dicomDataElement"],function(){
+      for(n=0;n<$scope.tableData.length;n++){
+        $scope.tableData[n].vr = $scope.getFromDataElement($scope.tableData[n].element,"VR");
+        $scope.tableData[n].vm = $scope.getFromDataElement($scope.tableData[n].element,"VM");
+      }
+      $scope.$apply();
+    });
+  };
+
+  $scope.vrvmClicked = false;
+
+  $scope.vrvmClick = function(){
+    if($scope.vrvmClicked === false){
+      $scope.getVRVM();
+      $scope.vrvmClicked = true;
+    }
+  };
+
   $scope.changeData = function(){
     var filename;
     var iodData;
@@ -88,14 +107,15 @@ app.controller("posdaCtrl", function ($scope) {
       }
     }
     var filepath = $scope.dataSelect.path + $scope.dataSelect.prefix + filename + $scope.dataSelect.suffix;
-    require([filepath, "lib/json/book/dicomDataElement"], function(){
+    require([filepath], function(){
       iodData = data.tags;
       //Test tabulate
       for(var dataRow in iodData){
         var dataRowMod = iodData[dataRow];
         dataRowMod.element = dataRow;
-        dataRowMod.vr = $scope.getFromDataElement(dataRowMod.element,"VR");
-        dataRowMod.vm = $scope.getFromDataElement(dataRowMod.element,"VM");
+        if($scope.vrShow === true || $scope.vmShow === true){
+          $scope.getVRVM();
+        }
         dataRowMod.desc = $scope.commentRender(dataRowMod.desc,"");
         $scope.tableData.push(dataRowMod);
 
