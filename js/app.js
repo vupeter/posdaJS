@@ -30,28 +30,33 @@ app.controller("posdaCtrl", function ($scope) {
     $scope.modeSelected = true;
   };
 
-  $scope.commentRender = function(input,comment){
+  $scope.commentRender = function(input,comment,i){
     if(input instanceof Array){
         for(i=0;i<input.length;i++){
           comment = $scope.commentRender(input[i], comment);
         }
     } else if (input instanceof Object){
-      if(input.el == "note" | input.el == "itemizedlist" | input.el == "orderedlist" | input.el == "para"){
-        comment = $scope.commentRender(input.content,comment);
+      if(input.el == "note" || input.el == "itemizedlist" || input.el == "orderedlist" || input.el == "para" || input.el == "listitem"){
+        comment = $scope.commentRender(input.content,comment); //this works
+      } else if (input.el == "itemizedlist"){
+        //comment = $scope.commentRender(input.content,comment); //depends on list items
+      } else if (input.el == "orderedlist"){
+        //comment = $scope.commentRender(input.content,comment); //depends on listitem
+      } else if (input.el == "para"){
+        //comment = $scope.commentRender(input.content,comment); //this works
       } else if (input.el == "listitem"){
-        //console logs this error: Uncaught RangeError: Invalid string length
-        //comment = $scope.commentRender(input.content,comment);
+        //comment = $scope.commentRender(input.content,comment); //this works
       } else if (input.el == "xref"){
-        comment += input.attrs.linkend;
+        //comment += input.attrs.linkend; //this works
       } else if (input.el == "olink"){
-        comment += input.attrs.targetdoc;
+        //comment += input.attrs.targetdoc; //this works
       } else if (input.el == "subscript"){
         //doesn't seem like posda does anything with this
       } else if (input.type == "variablelist"){
-        //something wrong here, debug file available
-        //comment = $scope.commentRender(input.list,comment);
+        comment = $scope.commentRender(input.list,comment); //this works too
+        console.log(input.list);
       } else {
-        console.log(input);
+        //console.log(input);
       }
     } else {
       comment += input;
