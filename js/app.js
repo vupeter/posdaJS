@@ -68,8 +68,12 @@ app.controller("posdaCtrl", function ($scope) {
 
   $scope.getFromDataElement = function(tag, thing){
     for(i=0;i<dataElement.length;i++){
-      if(tag == dataElement[i].Tag){
-        return dataElement[i][thing];
+      if(1 == 1){
+        if(tag == dataElement[i].Tag){
+          return dataElement[i][thing];
+        }
+      } else {
+
       }
     }
   };
@@ -90,8 +94,6 @@ app.controller("posdaCtrl", function ($scope) {
         $scope.$apply();
       });
       $scope.vrvmClicked = true;
-    } else {
-      $scope.updateVRVM();
     }
   };
 
@@ -116,7 +118,7 @@ app.controller("posdaCtrl", function ($scope) {
         var dataRowMod = iodData[dataRow];
         dataRowMod.element = dataRow;
         if($scope.vrShow === true || $scope.vmShow === true){
-          $scope.getVRVM();
+          $scope.updateVRVM();
         }
         dataRowMod.desc = $scope.commentRender(dataRowMod.desc,"");
         $scope.tableData.push(dataRowMod);
