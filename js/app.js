@@ -74,22 +74,24 @@ app.controller("posdaCtrl", function ($scope) {
     }
   };
 
-  $scope.getVRVM = function(){
-    require(["lib/json/book/dicomDataElement"],function(){
-      for(n=0;n<$scope.tableData.length;n++){
-        $scope.tableData[n].vr = $scope.getFromDataElement($scope.tableData[n].element,"VR");
-        $scope.tableData[n].vm = $scope.getFromDataElement($scope.tableData[n].element,"VM");
-      }
-      $scope.$apply();
-    });
-  };
-
   $scope.vrvmClicked = false;
 
-  $scope.vrvmClick = function(){
+  $scope.updateVRVM = function(){
+    for(n=0;n<$scope.tableData.length;n++){
+      $scope.tableData[n].vr = $scope.getFromDataElement($scope.tableData[n].element,"VR");
+      $scope.tableData[n].vm = $scope.getFromDataElement($scope.tableData[n].element,"VM");
+    }
+  };
+
+  $scope.getVRVM = function(){
     if($scope.vrvmClicked === false){
-      $scope.getVRVM();
+      require(["lib/json/book/dicomDataElement"],function(){
+        $scope.updateVRVM();
+        $scope.$apply();
+      });
       $scope.vrvmClicked = true;
+    } else {
+      $scope.updateVRVM();
     }
   };
 
@@ -145,6 +147,7 @@ app.controller("posdaCtrl", function ($scope) {
           }
       $scope.tableSelected = true;
       $scope.filterModule();
+      $scope.changeOrderBy('element');
       $scope.$apply();
     });
   };
