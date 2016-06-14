@@ -2,7 +2,7 @@ var app = angular.module('posdaJS', []);
 
 app.controller("posdaCtrl", function ($scope) {
 
-  $scope.showReq3 = false;
+  $scope.showOnlyRequired = true;
 
   $scope.changeMode = function(){
     switch($scope.modeSelect) {
@@ -68,13 +68,9 @@ app.controller("posdaCtrl", function ($scope) {
 
   $scope.getFromDataElement = function(tag, thing){
     for(i=0;i<dataElement.length;i++){
-      if(1 == 1){
         if(tag == dataElement[i].Tag){
           return dataElement[i][thing];
         }
-      } else {
-
-      }
     }
   };
 
@@ -82,8 +78,9 @@ app.controller("posdaCtrl", function ($scope) {
 
   $scope.updateVRVM = function(){
     for(n=0;n<$scope.tableData.length;n++){
-      $scope.tableData[n].vr = $scope.getFromDataElement($scope.tableData[n].element,"VR");
-      $scope.tableData[n].vm = $scope.getFromDataElement($scope.tableData[n].element,"VM");
+      var lastElement = $scope.tableData[n].element.slice(-11);
+      $scope.tableData[n].vr = $scope.getFromDataElement(lastElement,"VR");
+      $scope.tableData[n].vm = $scope.getFromDataElement(lastElement,"VM");
     }
   };
 
@@ -94,6 +91,26 @@ app.controller("posdaCtrl", function ($scope) {
         $scope.$apply();
       });
       $scope.vrvmClicked = true;
+    }
+  };
+
+  $scope.req3Elements = [];
+
+  $scope.isReq3 = function(row){
+    if(row.req == 3){
+      $scope.req3Elements.push(row.element);
+      return false;
+    }
+    return true;
+  };
+
+  $scope.requirementCheck = function(){
+    for(i=0;i<$scope.tableData.length;i++){
+      for(j=0;j<$scope.req3Elements.length;j++){
+        if($scope.tableData[i].required === true && $scope.tableData[i].element.indexOf($scope.req3Elements[j]) > 0){
+          $scope.tableData[i].required = false;
+        }
+      }
     }
   };
 
@@ -118,6 +135,7 @@ app.controller("posdaCtrl", function ($scope) {
         var dataRowMod = iodData[dataRow];
         dataRowMod.element = dataRow;
         dataRowMod.desc = $scope.commentRender(dataRowMod.desc,"");
+        dataRowMod.required = $scope.isReq3(dataRowMod);
         $scope.tableData.push(dataRowMod);
 
           //Entity+module rendering starts here
@@ -143,13 +161,15 @@ app.controller("posdaCtrl", function ($scope) {
               $scope.modules.push([]);
               $scope.modules[$scope.entities.length-1].push({name:dataRowMod.module,selected:true});
             }
-          }
+
+      }
       if($scope.vrShow === true || $scope.vmShow === true){
         $scope.updateVRVM();
       }
       $scope.tableSelected = true;
       $scope.filterModule();
       $scope.changeOrderBy('element');
+      $scope.requirementCheck();
       $scope.$apply();
     });
   };
@@ -183,8 +203,8 @@ app.controller("posdaCtrl", function ($scope) {
     return row;
   };
 
-  $scope.filterReq3 = function(row){
-    if (row.req == 3 && $scope.showReq3 === false){
+  $scope.filterRequired = function(row){
+    if (row.required === false && $scope.showOnlyRequired === true){
       return;
     }
     return row;
