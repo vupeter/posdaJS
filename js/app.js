@@ -117,9 +117,6 @@ app.controller("posdaCtrl", function ($scope) {
       for(var dataRow in iodData){
         var dataRowMod = iodData[dataRow];
         dataRowMod.element = dataRow;
-        if($scope.vrShow === true || $scope.vmShow === true){
-          $scope.updateVRVM();
-        }
         dataRowMod.desc = $scope.commentRender(dataRowMod.desc,"");
         $scope.tableData.push(dataRowMod);
 
@@ -147,6 +144,9 @@ app.controller("posdaCtrl", function ($scope) {
               $scope.modules[$scope.entities.length-1].push({name:dataRowMod.module,selected:true});
             }
           }
+      if($scope.vrShow === true || $scope.vmShow === true){
+        $scope.updateVRVM();
+      }
       $scope.tableSelected = true;
       $scope.filterModule();
       $scope.changeOrderBy('element');
