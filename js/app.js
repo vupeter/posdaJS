@@ -15,19 +15,20 @@ app.controller("posdaCtrl", function ($scope) {
     case "book":
         require(['lib/json/mode/book.js'], function(){
           $scope.dataSelect = dataList;
+          $scope.showTableSelect = true;
           $scope.$apply();
         });
         break;
     case "Composite IODs":
         require(['lib/json/mode/iod.js'], function(){
           $scope.dataSelect = dataList;
+          $scope.showTableSelect = true;
           $scope.$apply();
         });
         break;
     default:
         break;
     }
-    $scope.modeSelected = true;
   };
 
   $scope.commentRender = function(input,comment,i){
@@ -47,9 +48,9 @@ app.controller("posdaCtrl", function ($scope) {
       } else if (input.el == "listitem"){
         //comment = $scope.commentRender(input.content,comment); //this works
       } else if (input.el == "xref"){
-        //comment += input.attrs.linkend; //this works
+        comment += input.attrs.linkend; //this works
       } else if (input.el == "olink"){
-        //comment += input.attrs.targetdoc; //this works
+        comment += input.attrs.targetdoc; //this works
       } else if (input.el == "subscript"){
         //doesn't seem like posda does anything with this
       } else if (input.type == "variablelist"){
@@ -106,9 +107,12 @@ app.controller("posdaCtrl", function ($scope) {
 
   $scope.requirementCheck = function(){
     for(i=0;i<$scope.tableData.length;i++){
-      for(j=0;j<$scope.req3Elements.length;j++){
-        if($scope.tableData[i].required === true && $scope.tableData[i].element.indexOf($scope.req3Elements[j]) > 0){
-          $scope.tableData[i].required = false;
+      if($scope.tableData[i].required === true){
+        for(j=0;j<$scope.req3Elements.length;j++){
+          console.log(1);
+          if($scope.tableData[i].element.indexOf($scope.req3Elements[j]) > 0){
+            $scope.tableData[i].required = false;
+          }
         }
       }
     }

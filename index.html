@@ -18,10 +18,11 @@
             </div>
             <div class="col-xs-4">
               <select class="form-control" ng-model="modeSelect" ng-change="changeMode()">
+                <option>book</option>
                 <option>Composite IODs</option>
               </select>
             </div>
-          <div ng-show="modeSelected">
+          <div ng-show="showTableSelect">
             <div class="col-xs-1 col-xs-offset-1">
               <label class="selectLabel">Select: </label>
             </div>
