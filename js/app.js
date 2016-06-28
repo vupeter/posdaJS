@@ -230,10 +230,6 @@ app.controller("posdaCtrl", function ($scope) {
         }
       }
 
-      //if (iodData === undefined){
-      //  $scope.tableData = datab;
-      //}
-
       for(var dataRow in iodData){
         var dataRowMod = iodData[dataRow];
         dataRowMod.element = dataRow;
