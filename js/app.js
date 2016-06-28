@@ -1,14 +1,17 @@
-var app = angular.module('posdaJS', []);
+var app = angular.module('posdaJS', ['ngSanitize']);
 
 app.controller("posdaCtrl", function ($scope) {
 
   $scope.showOnlyRequired = true;
+
+  $scope.dataDump = [];
 
   $scope.changeMode = function(){
     switch($scope.modeSelect) {
     case "svg":
         require(['lib/json/mode/svg.js'], function(){
           $scope.dataSelect = dataList;
+          $scope.modeSelected = "svg";
           $scope.$apply();
         });
         break;
@@ -16,6 +19,7 @@ app.controller("posdaCtrl", function ($scope) {
         require(['lib/json/mode/book.js'], function(){
           $scope.dataSelect = dataList;
           $scope.showTableSelect = true;
+          $scope.iodSelected = false;
           $scope.$apply();
         });
         break;
@@ -23,6 +27,8 @@ app.controller("posdaCtrl", function ($scope) {
         require(['lib/json/mode/iod.js'], function(){
           $scope.dataSelect = dataList;
           $scope.showTableSelect = true;
+          $scope.modeSelected = "iod";
+          $scope.iodSelected = true;
           $scope.$apply();
         });
         break;
@@ -31,46 +37,74 @@ app.controller("posdaCtrl", function ($scope) {
     }
   };
 
-  $scope.commentRender = function(input,comment,i){
+  $scope.commentRender = function(input,comment,iType,i){
     if(input instanceof Array){
+      if (iType == "variablelist"){
         for(i=0;i<input.length;i++){
-          comment = $scope.commentRender(input[i], comment);
+          comment += "<li>";
+          for(j=0;j<input[i].length;j++){
+            if(input[i][j] !== null){
+              comment += input[i][j];
+            }
+            if(j===0 && input[i][j+1] !== null){
+              comment += " -- ";
+            }
+          }
+          comment += "</li>";
         }
+      } else {
+        for(i=0;i<input.length;i++){
+          comment = $scope.commentRender(input[i], comment, iType);
+        }
+      }
     } else if (input instanceof Object){
-      if(input.el == "note" || input.el == "itemizedlist" || input.el == "orderedlist" || input.el == "para" || input.el == "listitem"){
-        comment = $scope.commentRender(input.content,comment); //this works
+      if (input.el == "subscript"){
+        //doesn't seem like posda does anything with this
+      //} else if(input.el == "note" || input.el == "itemizedlist" || input.el == "orderedlist" || input.el == "para" || input.el == "listitem"){
+        //comment = $scope.commentRender(input.content,comment); //this works
+      } else if (input.el == "note"){
+        comment += "<br><strong>Note:</strong>";
+        comment = $scope.commentRender(input.content,comment); //depends on list items
       } else if (input.el == "itemizedlist"){
-        //comment = $scope.commentRender(input.content,comment); //depends on list items
+        comment = $scope.commentRender(input.content,comment); //depends on list items
       } else if (input.el == "orderedlist"){
-        //comment = $scope.commentRender(input.content,comment); //depends on listitem
+        comment = $scope.commentRender(input.content,comment); //depends on listitem
       } else if (input.el == "para"){
-        //comment = $scope.commentRender(input.content,comment); //this works
+        if (iType == "listitem"){
+          comment += "<li><p>";
+          comment = $scope.commentRender(input.content,comment); //this works
+          comment += "</p></li>";
+        } else {
+          comment += "<p>";
+          comment = $scope.commentRender(input.content,comment); //this works
+          comment += "</p>";
+        }
       } else if (input.el == "listitem"){
-        //comment = $scope.commentRender(input.content,comment); //this works
+        comment = $scope.commentRender(input.content,comment,"listitem"); //this works
       } else if (input.el == "xref"){
         comment += input.attrs.linkend; //this works
       } else if (input.el == "olink"){
         comment += input.attrs.targetdoc; //this works
-      } else if (input.el == "subscript"){
-        //doesn't seem like posda does anything with this
       } else if (input.type == "variablelist"){
-        comment = $scope.commentRender(input.list,comment); //this works too
+        comment += "<br><br><p><strong>" + input.title + "</strong></p>" + "<ul>";
+        comment = $scope.commentRender(input.list,comment,"variablelist"); //this works too
+        comment += "</ul>";
       } else {
         console.log(input);
       }
     } else {
       if(input === null){
-        input = "\r\n";
+        input = ""; //input = "\r\n";
       }
-      comment += input;
+      comment += " " + input;
     }
     return comment;
   };
 
   $scope.getFromDataElement = function(tag, thing){
-    for(i=0;i<dataElement.length;i++){
-        if(tag == dataElement[i].Tag){
-          return dataElement[i][thing];
+    for(i=0;i<datab.length;i++){
+        if(tag == datab[i].Tag){
+          return datab[i][thing];
         }
     }
   };
@@ -87,7 +121,7 @@ app.controller("posdaCtrl", function ($scope) {
 
   $scope.getVRVM = function(){
     if($scope.vrvmClicked === false){
-      require(["lib/json/book/dicomDataElement"],function(){
+      require(["lib/json/book/part06/table_6-1"],function(){
         $scope.updateVRVM();
         $scope.$apply();
       });
@@ -130,16 +164,32 @@ app.controller("posdaCtrl", function ($scope) {
         break;
       }
     }
+
+    if($scope.tableSelect == "table_A-1:caption - UID Values"){
+      $scope.uidSelected = true;
+      $scope.dataElementSelected = false;
+      $scope.iodSelected = false;
+    } else if ($scope.tableSelect == "table_6-1:caption - Registry of DICOM Data Element"){
+      $scope.uidSelected = false;
+      $scope.dataElementSelected = true;
+      $scope.iodSelected = false;
+    } else {
+      $scope.uidSelected = false;
+      $scope.dataElementSelected = false;
+      $scope.iodSelected = true;
+    }
+
     var filepath = $scope.dataSelect.path + $scope.dataSelect.prefix + filename + $scope.dataSelect.suffix;
     require([filepath], function(){
       iodData = data.tags;
-      //Test tabulate
+
       for(var dataRow in iodData){
         var dataRowMod = iodData[dataRow];
         dataRowMod.element = dataRow;
         dataRowMod.desc = $scope.commentRender(dataRowMod.desc,"");
         dataRowMod.required = $scope.isReq3(dataRowMod);
         $scope.tableData.push(dataRowMod);
+
 
           //Entity+module rendering starts here
             var entityExists = false;
@@ -166,6 +216,11 @@ app.controller("posdaCtrl", function ($scope) {
             }
 
       }
+
+      if (iodData === undefined){
+        $scope.tableData = datab;
+      }
+
       if($scope.vrShow === true || $scope.vmShow === true){
         $scope.updateVRVM();
       }
@@ -200,6 +255,9 @@ app.controller("posdaCtrl", function ($scope) {
   };
 
   $scope.modulesChecked = function(row){
+    if ($scope.iodSelected === false){
+      return row;
+    }
     if ($.inArray(row.module, $scope.moduleFilter) < 0){
       return;
     }

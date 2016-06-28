@@ -37,8 +37,7 @@
           <div ng-show="tableSelected">
           <h2>{{tableSelect}}</h2>
           <h3>{{tableName}}</h3>
-          <div id="parameters" class="well">
-
+          <div id="parameters" class="well" ng-show="iodSelected">
             <div class="row">
               <div class="col-xs-2"><center><p class="parameterTitle">Entity</p></center></div>
               <div class="col-xs-10"><center><p class="parameterTitle">Module</p></center></div>
@@ -103,30 +102,52 @@
           <table class="table table-hover table-bordered">
             <thead>
               <tr>
-                <th ng-click="changeOrderBy('element')">Element</th>
-                <th ng-click="changeOrderBy('entity')">Entity</th>
-                <th ng-click="changeOrderBy('module')">Module</th>
-                <th ng-click="changeOrderBy('usage')">Usage</th>
-                <th ng-click="changeOrderBy('req')">Req</th>
-                <th ng-click="changeOrderBy('req')" ng-show="vrShow">VR</th>
-                <th ng-click="changeOrderBy('req')" ng-show="vmShow">VM</th>
-                <th ng-click="changeOrderBy('name')">Name</th>
-                <th ng-click="changeOrderBy('desc')">Comments</th>
+                <th ng-click="changeOrderBy('UIDValue')" ng-show="uidSelected">UID Value</th>
+                <th ng-click="changeOrderBy('UIDName')" ng-show="uidSelected">UID Name</th>
+                <th ng-click="changeOrderBy('UIDType')" ng-show="uidSelected">UID Type</th>
+                <th ng-click="changeOrderBy('Part')" ng-show="uidSelected">Part</th>
+
+                <th ng-click="changeOrderBy('Tag')" ng-show="dataElementSelected">Tag</th>
+                <th ng-click="changeOrderBy('Name')" ng-show="dataElementSelected">Name</th>
+                <th ng-click="changeOrderBy('Keyword')" ng-show="dataElementSelected">Keyword</th>
+                <th ng-click="changeOrderBy('VR')" ng-show="dataElementSelected">VR</th>
+                <th ng-click="changeOrderBy('VM')" ng-show="dataElementSelected">VM</th>
+                <th ng-click="changeOrderBy('_empty_')" ng-show="dataElementSelected"></th>
+
+                <th ng-click="changeOrderBy('element')" ng-show="iodSelected">Element</th>
+                <th ng-click="changeOrderBy('entity')" ng-show="iodSelected">Entity</th>
+                <th ng-click="changeOrderBy('module')" ng-show="iodSelected">Module</th>
+                <th ng-click="changeOrderBy('usage')" ng-show="iodSelected">Usage</th>
+                <th ng-click="changeOrderBy('req')" ng-show="iodSelected">Req</th>
+                <th ng-click="changeOrderBy('req')" ng-show="vrShow && iodSelected">VR</th>
+                <th ng-click="changeOrderBy('req')" ng-show="vmShow && iodSelected">VM</th>
+                <th ng-click="changeOrderBy('name')" ng-show="iodSelected">Name</th>
+                <th ng-click="changeOrderBy('desc')" ng-show="iodSelected">Comments</th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="x in tableData | orderBy:orderByThis | filter:tableSearch | filter: modulesChecked | filter:filterRequired">
-                <td>{{x.element}}</td>
-                <td>{{x.entity}}</td>
-                <td>{{x.module}}</td>
-                <td>{{x.usage}}</td>
-                <td>{{x.req}}</td>
-                <td ng-show="vrShow">{{x.vr}}</td>
-                <td ng-show="vmShow">{{x.vm}}</td>
-                <td>{{x.name}}</td>
-                <td><pre>
-                  {{x.desc}}
-                </pre></td>
+                <td ng-show="uidSelected">{{x.UIDValue}}</td>
+                <td ng-show="uidSelected">{{x.UIDName}}</td>
+                <td ng-show="uidSelected">{{x.UIDType}}</td>
+                <td ng-show="uidSelected">{{x.Part}}</td>
+
+                <td ng-show="dataElementSelected">{{x.Tag}}</td>
+                <td ng-show="dataElementSelected">{{x.Name}}</td>
+                <td ng-show="dataElementSelected">{{x.Keyword}}</td>
+                <td ng-show="dataElementSelected">{{x.VR}}</td>
+                <td ng-show="dataElementSelected">{{x.VM}}</td>
+                <td ng-show="dataElementSelected">{{x._empty_}}</td>
+
+                <td ng-show="iodSelected">{{x.element}}</td>
+                <td ng-show="iodSelected">{{x.entity}}</td>
+                <td ng-show="iodSelected">{{x.module}}</td>
+                <td ng-show="iodSelected">{{x.usage}}</td>
+                <td ng-show="iodSelected">{{x.req}}</td>
+                <td ng-show="vrShow && iodSelected">{{x.vr}}</td>
+                <td ng-show="vmShow && iodSelected">{{x.vm}}</td>
+                <td ng-show="iodSelected">{{x.name}}</td>
+                <td ng-bind-html="x.desc" ng-show="iodSelected"></td>
               </tr>
             </tbody>
           </table>
@@ -146,6 +167,7 @@
     <script src="js/jquery-2.2.3.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/angular.min.js"></script>
+    <script src="js/angular-sanitize.min.js"></script>
     <script src="js/require.min.js"></script>
     <script src="js/app.js"></script>
   </footer>
