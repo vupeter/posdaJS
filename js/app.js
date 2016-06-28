@@ -17,7 +17,6 @@ app.controller("posdaCtrl", function ($scope) {
         break;
     case "book":
         require(['lib/json/mode/book.js'], function(){
-          console.log($scope.dataDump.mode.book);
           if($scope.dataDump.mode.book === undefined){
             $scope.dataDump.mode.book = {};
             $scope.dataDump.mode.book.data = dataList;
@@ -132,6 +131,17 @@ app.controller("posdaCtrl", function ($scope) {
   $scope.getVRVM = function(){
     if($scope.vrvmClicked === false){
       require(["lib/json/book/part06/table_6-1"],function(){
+        var bookDataInDump = false;
+        for(i=0;i<$scope.dataDump.book.length;i++){
+          if("table_6-1:caption - Registry of DICOM Data Element" == $scope.dataDump.book[i].table){
+            datab = $scope.dataDump.book[i].data;
+            bookDataInDump = true;
+            break;
+          }
+        }
+        if(!bookDataInDump){
+          $scope.dataDump.book.push({"table":datab,"data":datab});
+        }
         $scope.updateVRVM();
         $scope.$apply();
       });
@@ -258,7 +268,7 @@ app.controller("posdaCtrl", function ($scope) {
 
       }
 
-      if($scope.vrShow === true || $scope.vmShow === true){
+      if($scope.vrShow === true && $scope.iodSelected || $scope.vmShow === true && $scope.iodSelected){
         $scope.updateVRVM();
       }
       $scope.tableSelected = true;
@@ -266,7 +276,6 @@ app.controller("posdaCtrl", function ($scope) {
       $scope.changeOrderBy('element');
       $scope.requirementCheck();
       $scope.$apply();
-      console.log($scope.tableData);
     });
   };
 
