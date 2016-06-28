@@ -4,7 +4,7 @@ app.controller("posdaCtrl", function ($scope) {
 
   $scope.showOnlyRequired = true;
 
-  $scope.dataDump = [];
+  $scope.dataDump = {"book" : [], "iod" : [],"mode": {"svg":undefined,"book":undefined,"iod":undefined}};
 
   $scope.changeMode = function(){
     switch($scope.modeSelect) {
@@ -17,7 +17,12 @@ app.controller("posdaCtrl", function ($scope) {
         break;
     case "book":
         require(['lib/json/mode/book.js'], function(){
-          $scope.dataSelect = dataList;
+          console.log($scope.dataDump.mode.book);
+          if($scope.dataDump.mode.book === undefined){
+            $scope.dataDump.mode.book = {};
+            $scope.dataDump.mode.book.data = dataList;
+          }
+          $scope.dataSelect = $scope.dataDump.mode.book.data;
           $scope.showTableSelect = true;
           $scope.iodSelected = false;
           $scope.$apply();
@@ -25,7 +30,11 @@ app.controller("posdaCtrl", function ($scope) {
         break;
     case "Composite IODs":
         require(['lib/json/mode/iod.js'], function(){
-          $scope.dataSelect = dataList;
+          if($scope.dataDump.mode.iod === undefined){
+            $scope.dataDump.mode.iod = {};
+            $scope.dataDump.mode.iod.data = dataList;
+          }
+          $scope.dataSelect = $scope.dataDump.mode.iod.data;
           $scope.showTableSelect = true;
           $scope.modeSelected = "iod";
           $scope.iodSelected = true;
@@ -35,6 +44,7 @@ app.controller("posdaCtrl", function ($scope) {
     default:
         break;
     }
+    $scope.tableSelected = false;
   };
 
   $scope.commentRender = function(input,comment,iType,i){
@@ -181,7 +191,38 @@ app.controller("posdaCtrl", function ($scope) {
 
     var filepath = $scope.dataSelect.path + $scope.dataSelect.prefix + filename + $scope.dataSelect.suffix;
     require([filepath], function(){
-      iodData = data.tags;
+
+      if($scope.iodSelected === true){
+        var iodDataInDump = false;
+        for(i=0;i<$scope.dataDump.iod.length;i++){
+          if($scope.tableSelect == $scope.dataDump.iod[i].table){
+            iodData = $scope.dataDump.iod[i].data;
+            iodDataInDump = true;
+            break;
+          }
+        }
+        if(!iodDataInDump){
+          iodData = data.tags;
+          $scope.dataDump.iod.push({"table":$scope.tableSelect,"data":data.tags});
+        }
+      } else {
+        var bookDataInDump = false;
+        for(i=0;i<$scope.dataDump.book.length;i++){
+          if($scope.tableSelect == $scope.dataDump.book[i].table){
+            $scope.tableData = $scope.dataDump.book[i].data;
+            bookDataInDump = true;
+            break;
+          }
+        }
+        if(!bookDataInDump){
+          $scope.tableData = datab;
+          $scope.dataDump.book.push({"table":$scope.tableSelect,"data":datab});
+        }
+      }
+
+      //if (iodData === undefined){
+      //  $scope.tableData = datab;
+      //}
 
       for(var dataRow in iodData){
         var dataRowMod = iodData[dataRow];
@@ -217,10 +258,6 @@ app.controller("posdaCtrl", function ($scope) {
 
       }
 
-      if (iodData === undefined){
-        $scope.tableData = datab;
-      }
-
       if($scope.vrShow === true || $scope.vmShow === true){
         $scope.updateVRVM();
       }
@@ -229,6 +266,7 @@ app.controller("posdaCtrl", function ($scope) {
       $scope.changeOrderBy('element');
       $scope.requirementCheck();
       $scope.$apply();
+      console.log($scope.tableData);
     });
   };
 
