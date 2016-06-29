@@ -163,7 +163,7 @@ app.controller("posdaCtrl", function ($scope) {
     for(i=0;i<$scope.tableData.length;i++){
       if($scope.tableData[i].required === true && $scope.tableData[i].element.length > 12){
         for(j=0;j<$scope.req3Elements.length;j++){
-          if($scope.tableData[i].element.indexOf($scope.req3Elements[j]) > 0){
+          if($scope.tableData[i].element.indexOf($scope.req3Elements[j]) >= 0){
             $scope.tableData[i].required = false;
           }
         }
