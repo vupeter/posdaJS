@@ -119,35 +119,35 @@
                 <th ng-click="changeOrderBy('module')" ng-show="iodSelected">Module</th>
                 <th ng-click="changeOrderBy('usage')" ng-show="iodSelected">Usage</th>
                 <th ng-click="changeOrderBy('req')" ng-show="iodSelected">Req</th>
-                <th ng-click="changeOrderBy('req')" ng-show="vrShow && iodSelected">VR</th>
-                <th ng-click="changeOrderBy('req')" ng-show="vmShow && iodSelected">VM</th>
+                <th ng-click="changeOrderBy('vr')" ng-show="vrShow && iodSelected">VR</th>
+                <th ng-click="changeOrderBy('vm')" ng-show="vmShow && iodSelected">VM</th>
                 <th ng-click="changeOrderBy('name')" ng-show="iodSelected">Name</th>
                 <th ng-click="changeOrderBy('desc')" ng-show="iodSelected">Comments</th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="x in tableData | orderBy:orderByThis | filter:tableSearch | filter: modulesChecked | filter:filterRequired">
-                <td ng-show="uidSelected">{{x.UIDValue}}</td>
-                <td ng-show="uidSelected">{{x.UIDName}}</td>
-                <td ng-show="uidSelected">{{x.UIDType}}</td>
-                <td ng-show="uidSelected">{{x.Part}}</td>
+                <td ng-if="uidSelected">{{x.UIDValue}}</td>
+                <td ng-if="uidSelected">{{x.UIDName}}</td>
+                <td ng-if="uidSelected">{{x.UIDType}}</td>
+                <td ng-if="uidSelected">{{x.Part}}</td>
 
-                <td ng-show="dataElementSelected">{{x.Tag}}</td>
-                <td ng-show="dataElementSelected">{{x.Name}}</td>
-                <td ng-show="dataElementSelected">{{x.Keyword}}</td>
-                <td ng-show="dataElementSelected">{{x.VR}}</td>
-                <td ng-show="dataElementSelected">{{x.VM}}</td>
-                <td ng-show="dataElementSelected">{{x._empty_}}</td>
+                <td ng-if="dataElementSelected">{{x.Tag}}</td>
+                <td ng-if="dataElementSelected">{{x.Name}}</td>
+                <td ng-if="dataElementSelected">{{x.Keyword}}</td>
+                <td ng-if="dataElementSelected">{{x.VR}}</td>
+                <td ng-if="dataElementSelected">{{x.VM}}</td>
+                <td ng-if="dataElementSelected">{{x._empty_}}</td>
 
-                <td ng-show="iodSelected">{{x.element}}</td>
-                <td ng-show="iodSelected">{{x.entity}}</td>
-                <td ng-show="iodSelected">{{x.module}}</td>
-                <td ng-show="iodSelected">{{x.usage}}</td>
-                <td ng-show="iodSelected">{{x.req}}</td>
-                <td ng-show="vrShow && iodSelected">{{x.vr}}</td>
-                <td ng-show="vmShow && iodSelected">{{x.vm}}</td>
-                <td ng-show="iodSelected">{{x.name}}</td>
-                <td ng-bind-html="x.desc" ng-show="iodSelected"></td>
+                <td ng-if="iodSelected">{{x.element}}</td>
+                <td ng-if="iodSelected">{{x.entity}}</td>
+                <td ng-if="iodSelected">{{x.module}}</td>
+                <td ng-if="iodSelected">{{x.usage}}</td>
+                <td ng-if="iodSelected">{{x.req}}</td>
+                <td ng-if="vrShow && iodSelected">{{x.vr}}</td>
+                <td ng-if="vmShow && iodSelected">{{x.vm}}</td>
+                <td ng-if="iodSelected">{{x.name}}</td>
+                <td ng-bind-html="x.desc" ng-if="iodSelected"></td>
               </tr>
             </tbody>
           </table>
