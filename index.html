@@ -1,174 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <title>posdaJS</title>
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-  </head>
+</head>
 
-  <body ng-app="posdaJS" ng-controller="posdaCtrl">
+<body ng-app="posdaJS" ng-controller="posdaCtrl">
     <div id="data" class="container-fluid">
-      <div class="row">
-        <div class="col-xs-10 col-xs-offset-1">
-          <h1 class="siteTitle">posdaJS</h1>
-          <hr>
-          <div id="modeSelect" class="row">
-            <div class="col-xs-1">
-              <label class="selectLabel">Mode: </label>
-            </div>
-            <div class="col-xs-4">
-              <select class="form-control" ng-model="modeSelect" ng-change="changeMode()">
-                <option>book</option>
-                <option>Composite IODs</option>
-              </select>
-            </div>
-          <div ng-show="showTableSelect">
-            <div class="col-xs-1 col-xs-offset-1">
-              <label class="selectLabel">Select: </label>
-            </div>
-            <div class="col-xs-4">
-              <select class="form-control" id="dataSelect" ng-model="tableSelect" ng-change="changeData()">
-                <option ng-repeat="x in dataSelect.table">{{x.Title}}</option>
-              </select>
-            </div>
-          </div>
-          </div>
-          <hr>
-          <div ng-show="tableSelected">
-          <h2>{{tableSelect}}</h2>
-          <h3>{{tableName}}</h3>
-          <div id="parameters" class="well" ng-show="iodSelected">
-            <div class="row">
-              <div class="col-xs-2"><center><p class="parameterTitle">Entity</p></center></div>
-              <div class="col-xs-10"><center><p class="parameterTitle">Module</p></center></div>
-            </div>
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <h1 class="siteTitle">posdaJS</h1>
+                <hr>
+                <div id="modeSelect" class="row">
+                    <div class="col-xs-1">
+                        <label class="selectLabel">Mode: </label>
+                    </div>
+                    <div class="col-xs-4">
+                        <select class="form-control" ng-model="modeSelect" ng-change="changeMode()">
+                            <option>book</option>
+                            <option>Composite IODs</option>
+                        </select>
+                    </div>
+                    <div ng-show="showTableSelect">
+                        <div class="col-xs-1 col-xs-offset-1">
+                            <label class="selectLabel">Select: </label>
+                        </div>
+                        <div class="col-xs-4">
+                            <select class="form-control" id="dataSelect" ng-model="tableSelect" ng-change="changeData()">
+                                <option ng-repeat="x in dataSelect.table">{{x.Title}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div ng-show="tableSelected">
+                    <h2>{{tableSelect}}</h2>
+                    <h3>{{tableName}}</h3>
+                    <div id="parameters" class="well" ng-show="iodSelected">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <center>
+                                    <p class="parameterTitle">Entity</p>
+                                </center>
+                            </div>
+                            <div class="col-xs-10">
+                                <center>
+                                    <p class="parameterTitle">Module</p>
+                                </center>
+                            </div>
+                        </div>
 
-            <div class="row" ng-repeat="x in entities track by $index">
-              <div class="col-xs-3">
-                <label class="parameterGroup"><input type="checkbox" ng-click="filterEntity($index,x.selected)" ng-model="x.selected" />{{x.name}}</label>
-              </div>
-              <div class="col-xs-9">
-                <label ng-repeat="n in modules[$index]"><input type="checkbox" ng-model="n.selected" ng-click="filterModule(n.name)" />{{n.name}}&nbsp;&nbsp;</label>
-              </div>
-            </div>
+                        <div class="row" ng-repeat="x in entities track by $index">
+                            <div class="col-xs-3">
+                                <label class="parameterGroup">
+                                    <input type="checkbox" ng-click="filterEntity($index,x.selected)" ng-model="x.selected" />{{x.name}}</label>
+                            </div>
+                            <div class="col-xs-9">
+                                <label ng-repeat="n in modules[$index]">
+                                    <input type="checkbox" ng-model="n.selected" ng-click="filterModule(n.name)" />{{n.name}}&nbsp;&nbsp;</label>
+                            </div>
+                        </div>
 
-            <div class="row">
-              <div class="col-xs-offset-3 col-xs-2">
-                <center>
-                  <button class="btn" ng-click="selectAll()">Select all</button>
-                </center>
-              </div>
-              <div class="col-xs-2">
-                <center>
-                  <center>
-                    <button class="btn" ng-click="deselectAll()">Deselect all</button>
-                  </center>
-                </center>
-              </div>
-              <div class="col-xs-2">
-                <center>
-                  <center>
-                    <button class="btn" ng-click="advOpt = !advOpt">Advanced Options</button>
-                  </center>
-                </center>
-              </div>
+                        <div class="row">
+                            <div class="col-xs-offset-3 col-xs-2">
+                                <center>
+                                    <button class="btn" ng-click="selectAll()">Select all</button>
+                                </center>
+                            </div>
+                            <div class="col-xs-2">
+                                <center>
+                                    <center>
+                                        <button class="btn" ng-click="deselectAll()">Deselect all</button>
+                                    </center>
+                                </center>
+                            </div>
+                            <div class="col-xs-2">
+                                <center>
+                                    <center>
+                                        <button class="btn" ng-click="advOpt = !advOpt">Advanced Options</button>
+                                    </center>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" ng-show="advOpt">
+                        <div class="col-xs-offset-3 col-xs-2">
+                            <center>
+                                <label class="parameterGroup">
+                                    <input type="checkbox" ng-model="vrShow" ng-click="getVRVM()" />Show VR</label>
+                            </center>
+                        </div>
+                        <div class="col-xs-2">
+                            <center>
+                                <label class="parameterGroup">
+                                    <input type="checkbox" ng-model="vmShow" ng-click="getVRVM()" />Show VM</label>
+                            </center>
+                        </div>
+                        <div class="col-xs-2">
+                            <center>
+                                <label class="parameterGroup">
+                                    <input type="checkbox" ng-model="showOnlyRequired" />Show Only Required</label>
+                            </center>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">Search</span>
+                        <input type="text" class="form-control" ng-model="tableSearch" placeholder="Enter search query here." aria-describedby="sizing-addon2">
+                    </div>
+
+                    <div id="renderedTable">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th ng-click="changeOrderBy('UIDValue')" ng-show="uidSelected">UID Value</th>
+                                    <th ng-click="changeOrderBy('UIDName')" ng-show="uidSelected">UID Name</th>
+                                    <th ng-click="changeOrderBy('UIDType')" ng-show="uidSelected">UID Type</th>
+                                    <th ng-click="changeOrderBy('Part')" ng-show="uidSelected">Part</th>
+
+                                    <th ng-click="changeOrderBy('Tag')" ng-show="dataElementSelected">Tag</th>
+                                    <th ng-click="changeOrderBy('Name')" ng-show="dataElementSelected">Name</th>
+                                    <th ng-click="changeOrderBy('Keyword')" ng-show="dataElementSelected">Keyword</th>
+                                    <th ng-click="changeOrderBy('VR')" ng-show="dataElementSelected">VR</th>
+                                    <th ng-click="changeOrderBy('VM')" ng-show="dataElementSelected">VM</th>
+                                    <th ng-click="changeOrderBy('_empty_')" ng-show="dataElementSelected"></th>
+
+                                    <th ng-click="changeOrderBy('element')" ng-show="iodSelected">Element</th>
+                                    <th ng-click="changeOrderBy('entity')" ng-show="iodSelected">Entity</th>
+                                    <th ng-click="changeOrderBy('module')" ng-show="iodSelected">Module</th>
+                                    <th ng-click="changeOrderBy('usage')" ng-show="iodSelected">Usage</th>
+                                    <th ng-click="changeOrderBy('req')" ng-show="iodSelected">Req</th>
+                                    <th ng-click="changeOrderBy('vr')" ng-show="vrShow && iodSelected">VR</th>
+                                    <th ng-click="changeOrderBy('vm')" ng-show="vmShow && iodSelected">VM</th>
+                                    <th ng-click="changeOrderBy('name')" ng-show="iodSelected">Name</th>
+                                    <th ng-click="changeOrderBy('desc')" ng-show="iodSelected">Comments</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="x in tableData | orderBy:orderByThis | filter:tableSearch | filter: modulesChecked | filter:filterRequired">
+                                    <td ng-if="uidSelected">{{x.UIDValue}}</td>
+                                    <td ng-if="uidSelected">{{x.UIDName}}</td>
+                                    <td ng-if="uidSelected">{{x.UIDType}}</td>
+                                    <td ng-if="uidSelected">{{x.Part}}</td>
+
+                                    <td ng-if="dataElementSelected">{{x.Tag}}</td>
+                                    <td ng-if="dataElementSelected">{{x.Name}}</td>
+                                    <td ng-if="dataElementSelected">{{x.Keyword}}</td>
+                                    <td ng-if="dataElementSelected">{{x.VR}}</td>
+                                    <td ng-if="dataElementSelected">{{x.VM}}</td>
+                                    <td ng-if="dataElementSelected">{{x._empty_}}</td>
+
+                                    <td ng-if="iodSelected">{{x.element}}</td>
+                                    <td ng-if="iodSelected">{{x.entity}}</td>
+                                    <td ng-if="iodSelected">{{x.module}}</td>
+                                    <td ng-if="iodSelected">{{x.usage}}</td>
+                                    <td ng-if="iodSelected">{{x.req}}</td>
+                                    <td ng-if="vrShow && iodSelected">{{x.vr}}</td>
+                                    <td ng-if="vmShow && iodSelected">{{x.vm}}</td>
+                                    <td ng-if="iodSelected">{{x.name}}</td>
+                                    <td ng-bind-html="x.desc" ng-if="iodSelected"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
             </div>
         </div>
-
-        <div class="row" ng-show="advOpt">
-          <div class="col-xs-offset-3 col-xs-2">
-            <center>
-              <label class="parameterGroup"><input type="checkbox" ng-model="vrShow" ng-click="getVRVM()" />Show VR</label>
-            </center>
-          </div>
-          <div class="col-xs-2">
-            <center>
-              <label class="parameterGroup"><input type="checkbox" ng-model="vmShow" ng-click="getVRVM()" />Show VM</label>
-            </center>
-          </div>
-          <div class="col-xs-2">
-            <center>
-              <label class="parameterGroup"><input type="checkbox" ng-model="showOnlyRequired" />Show Only Required</label>
-            </center>
-          </div>
-        </div>
-
-        <div class="input-group">
-          <span class="input-group-addon">Search</span>
-          <input type="text" class="form-control" ng-model="tableSearch" placeholder="Enter search query here." aria-describedby="sizing-addon2">
-        </div>
-
-        <div id="renderedTable">
-          <table class="table table-hover table-bordered">
-            <thead>
-              <tr>
-                <th ng-click="changeOrderBy('UIDValue')" ng-show="uidSelected">UID Value</th>
-                <th ng-click="changeOrderBy('UIDName')" ng-show="uidSelected">UID Name</th>
-                <th ng-click="changeOrderBy('UIDType')" ng-show="uidSelected">UID Type</th>
-                <th ng-click="changeOrderBy('Part')" ng-show="uidSelected">Part</th>
-
-                <th ng-click="changeOrderBy('Tag')" ng-show="dataElementSelected">Tag</th>
-                <th ng-click="changeOrderBy('Name')" ng-show="dataElementSelected">Name</th>
-                <th ng-click="changeOrderBy('Keyword')" ng-show="dataElementSelected">Keyword</th>
-                <th ng-click="changeOrderBy('VR')" ng-show="dataElementSelected">VR</th>
-                <th ng-click="changeOrderBy('VM')" ng-show="dataElementSelected">VM</th>
-                <th ng-click="changeOrderBy('_empty_')" ng-show="dataElementSelected"></th>
-
-                <th ng-click="changeOrderBy('element')" ng-show="iodSelected">Element</th>
-                <th ng-click="changeOrderBy('entity')" ng-show="iodSelected">Entity</th>
-                <th ng-click="changeOrderBy('module')" ng-show="iodSelected">Module</th>
-                <th ng-click="changeOrderBy('usage')" ng-show="iodSelected">Usage</th>
-                <th ng-click="changeOrderBy('req')" ng-show="iodSelected">Req</th>
-                <th ng-click="changeOrderBy('vr')" ng-show="vrShow && iodSelected">VR</th>
-                <th ng-click="changeOrderBy('vm')" ng-show="vmShow && iodSelected">VM</th>
-                <th ng-click="changeOrderBy('name')" ng-show="iodSelected">Name</th>
-                <th ng-click="changeOrderBy('desc')" ng-show="iodSelected">Comments</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="x in tableData | orderBy:orderByThis | filter:tableSearch | filter: modulesChecked | filter:filterRequired">
-                <td ng-if="uidSelected">{{x.UIDValue}}</td>
-                <td ng-if="uidSelected">{{x.UIDName}}</td>
-                <td ng-if="uidSelected">{{x.UIDType}}</td>
-                <td ng-if="uidSelected">{{x.Part}}</td>
-
-                <td ng-if="dataElementSelected">{{x.Tag}}</td>
-                <td ng-if="dataElementSelected">{{x.Name}}</td>
-                <td ng-if="dataElementSelected">{{x.Keyword}}</td>
-                <td ng-if="dataElementSelected">{{x.VR}}</td>
-                <td ng-if="dataElementSelected">{{x.VM}}</td>
-                <td ng-if="dataElementSelected">{{x._empty_}}</td>
-
-                <td ng-if="iodSelected">{{x.element}}</td>
-                <td ng-if="iodSelected">{{x.entity}}</td>
-                <td ng-if="iodSelected">{{x.module}}</td>
-                <td ng-if="iodSelected">{{x.usage}}</td>
-                <td ng-if="iodSelected">{{x.req}}</td>
-                <td ng-if="vrShow && iodSelected">{{x.vr}}</td>
-                <td ng-if="vmShow && iodSelected">{{x.vm}}</td>
-                <td ng-if="iodSelected">{{x.name}}</td>
-                <td ng-bind-html="x.desc" ng-if="iodSelected"></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        </div>
-      </div>
-      </div>
     </div>
-  </body>
+</body>
 
 
 
 
 
-  <footer>
+<footer>
     <script src="js/jquery-2.2.3.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/angular-sanitize.min.js"></script>
     <script src="js/require.min.js"></script>
     <script src="js/app.js"></script>
-  </footer>
+</footer>
+
 </html>
