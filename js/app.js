@@ -97,7 +97,10 @@ app.controller("posdaCtrl", function($scope) {
             } else if (input.el == "listitem") {
                 comment = $scope.commentRender(input.content, comment, "listitem"); //this works
             } else if (input.el == "xref") {
-                comment += input.attrs.linkend; //this works
+                var sectEnd = input.attrs.linkend.indexOf(".",8);
+                var sect = input.attrs.linkend.slice(0,sectEnd);
+                var sectLink = "http://dicom.nema.org/dicom/2013/output/chtml/part03/" + sect + ".html#" + input.attrs.linkend;
+                comment += '<a href="'+ sectLink + '" target="_blank">' + input.attrs.linkend.slice(5) + '</a>'; //this works
             } else if (input.el == "olink") {
                 comment += input.attrs.targetdoc; //this works
             } else if (input.type == "variablelist") {
