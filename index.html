@@ -27,10 +27,18 @@
                         <div class="col-xs-1 col-xs-offset-1">
                             <label class="selectLabel">Select: </label>
                         </div>
-                        <div class="col-xs-4">
-                            <select class="form-control" id="dataSelect" ng-model="tableSelect" ng-change="changeData()">
+                        <div class="col-xs-4 input-group">
+                          <input class="form-control" list="tableSelectList" ng-show="tableSearchSwitch" type="text" ng-model="tableSelect" ng-change="changeData()">
+                          <datalist id="tableSelectList">
+                              <option ng-repeat="x in dataSelect.table">{{x.Title}}</option>
+                          </datalist>
+                            <select class="form-control" id="dataSelect" ng-model="tableSelect" ng-hide="tableSearchSwitch" ng-change="changeData()">
                                 <option ng-repeat="x in dataSelect.table">{{x.Title}}</option>
                             </select>
+                            <span class="input-group-addon">
+                              <input type="checkbox" ng-model="tableSearchSwitch" ng-change="tableSelected=false;tableSelect=''">
+                              Search
+                            </span>
                         </div>
                     </div>
                 </div>
