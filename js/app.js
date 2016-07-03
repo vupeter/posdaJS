@@ -4,6 +4,14 @@ app.controller("posdaCtrl", function($scope) {
 
     $scope.showOnlyRequired = true;
 
+    $scope.loadMoreCheck = function(){
+      if($scope.tableData.length > $scope.rowsDisplayed){
+        $scope.endTable = "Load more...";
+      } else {
+        $scope.endTable = "";
+      }
+    };
+
     $scope.dataDump = {
         "book": [],
         "iod": [],
@@ -298,6 +306,7 @@ app.controller("posdaCtrl", function($scope) {
             $scope.filterModule();
             $scope.changeOrderBy('element');
             $scope.requirementCheck();
+            $scope.loadMoreCheck();
             $scope.$apply();
         });
     };
@@ -364,4 +373,14 @@ app.controller("posdaCtrl", function($scope) {
         }
         $scope.filterModule();
     };
+
+
+
+    $scope.rowsDisplayed = 250;
+
+    $scope.loadMore = function () {
+      $scope.rowsDisplayed += 250;
+      $scope.loadMoreCheck();
+    };
+
 });

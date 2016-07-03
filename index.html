@@ -148,7 +148,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="x in tableData | orderBy:orderByThis | filter:tableSearch | filter: modulesChecked | filter:filterRequired">
+                                <tr ng-repeat="x in tableData | orderBy:orderByThis | filter:tableSearch | filter: modulesChecked | filter:filterRequired | limitTo:rowsDisplayed">
                                     <td ng-if="uidSelected">{{x.UIDValue}}</td>
                                     <td ng-if="uidSelected">{{x.UIDName}}</td>
                                     <td ng-if="uidSelected">{{x.UIDType}}</td>
@@ -173,6 +173,9 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <center>
+                          <a ng-click="loadMore()">{{endTable}}</a>
+                        </center><br />
                     </div>
 
                 </div>
