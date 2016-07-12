@@ -107,9 +107,9 @@ app.controller("posdaCtrl", function($scope) {
             } else if (input.el == "xref") {
                 var sectEnd = input.attrs.linkend.indexOf(".", 8);
                 var sect = input.attrs.linkend.slice(0, sectEnd);
-                var sectLink = "http://dicom.nema.org/medical/dicom/2016b/output/chtml/part03/" + sect + ".html#" + input.attrs.linkend;
                 var linkText = input.attrs.linkend.slice(5);
                 if(input.attrs.linkend.slice(0,7) != "sect_C."){
+                  console.log(input.attrs.linkend);
                   if(input.attrs.linkend.slice(0,7) == "biblio_"){
                     if(input.attrs.linkend == "biblio_RFC_3986"){
                       sectLink = "https://tools.ietf.org/html/rfc3986";
@@ -123,10 +123,20 @@ app.controller("posdaCtrl", function($scope) {
                     input.attrs.linkend = "sect_C." + input.attrs.linkend.slice(5);
                     sectEnd = input.attrs.linkend.indexOf(".", 8);
                     sect = input.attrs.linkend.slice(0, sectEnd);
-                    sectLink = "http://dicom.nema.org/medical/dicom/2016b/output/chtml/part03/" + sect + ".html#" + input.attrs.linkend;
                   }
                 }
 
+                if(input.attrs.linkend.indexOf("sect_C.8") >= 0){
+                  console.log(input.attrs.linkend);
+                  if(input.attrs.linkend.slice(7).length > 7){
+                    sect = input.attrs.linkend.slice(0,input.attrs.linkend.length - 2);
+                  }
+                  if(input.attrs.linkend.slice(7).length <= 3){
+                    sect = input.attrs.linkend;
+                  }
+                }
+                
+                var sectLink = "http://dicom.nema.org/medical/dicom/2016b/output/chtml/part03/" + sect + ".html#" + input.attrs.linkend;
                 comment += '<a href="' + sectLink + '" target="_blank">' + linkText + '</a>'; //this works
             } else if (input.el == "olink") {
                 comment += input.attrs.targetdoc; //this works
