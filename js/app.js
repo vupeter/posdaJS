@@ -4,12 +4,12 @@ app.controller("posdaCtrl", function($scope) {
 
     $scope.showOnlyRequired = true;
 
-    $scope.loadMoreCheck = function(){
-      if($scope.tableData.length > $scope.rowsDisplayed){
-        $scope.endTable = "Load more...";
-      } else {
-        $scope.endTable = "";
-      }
+    $scope.loadMoreCheck = function() {
+        if ($scope.tableData.length > $scope.rowsDisplayed) {
+            $scope.endTable = "Load more...";
+        } else {
+            $scope.endTable = "";
+        }
     };
 
     $scope.dataDump = {
@@ -105,16 +105,23 @@ app.controller("posdaCtrl", function($scope) {
             } else if (input.el == "listitem") {
                 comment = $scope.commentRender(input.content, comment, "listitem"); //this works
             } else if (input.el == "xref") {
-                var sectEnd = input.attrs.linkend.indexOf(".",8);
-                var sect = input.attrs.linkend.slice(0,sectEnd);
-                var sectLink = "http://dicom.nema.org/dicom/2013/output/chtml/part03/" + sect + ".html#" + input.attrs.linkend;
-                comment += '<a href="'+ sectLink + '" target="_blank">' + input.attrs.linkend.slice(5) + '</a>'; //this works
+
+              var linkText = input.attrs.linkend.slice(5);
+              if(input.attrs.linkend.slice(0,7) != "sect_C."){
+                if(input.attrs.linkend.slice(0,7) == "biblio_"){
+                  linkText = input.attrs.linkend;
+                  console.log(input);
+                }
+              }
+                comment += '<a href="' + input.linkOut + '" target="_blank">' + linkText + '</a>'; //this works
             } else if (input.el == "olink") {
-                comment += input.attrs.targetdoc; //this works
+              comment += '<a href="' + input.linkOut + '" target="_blank">' + input.attrs.targetdoc + '</a>'; //this works
             } else if (input.type == "variablelist") {
                 comment += "<br><br><p><strong>" + input.title + "</strong></p>" + "<ul>";
                 comment = $scope.commentRender(input.list, comment, "variablelist"); //this works too
                 comment += "</ul>";
+            } else if (input.el == "link"){
+                comment += '<a href="' + input.attrs['xl:href'] + '" target="_blank">' + input.content[0] + '</a>';
             } else {
                 console.log(input);
             }
@@ -378,9 +385,9 @@ app.controller("posdaCtrl", function($scope) {
 
     $scope.rowsDisplayed = 250;
 
-    $scope.loadMore = function () {
-      $scope.rowsDisplayed += 250;
-      $scope.loadMoreCheck();
+    $scope.loadMore = function() {
+        $scope.rowsDisplayed += 250;
+        $scope.loadMoreCheck();
     };
 
 });
