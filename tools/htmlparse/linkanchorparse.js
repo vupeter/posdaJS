@@ -16,6 +16,10 @@ var parseHTMLTitles = function(directory,i){
             parseHTMLTitles(itemPath);
           } else {
             var $ = cheerio.load(fs.readFileSync(itemPath));
+            var currentTime = new Date().getTime();
+            var fileTime = currentTime - lastTime;
+            console.log(itemPath + " | " + (fileTime) + "ms");
+            lastTime = currentTime;
             $('.title').each(function(i, element){
               var singleTitle = $(this).html();
               var linkStart = singleTitle.indexOf('<');
@@ -26,10 +30,28 @@ var parseHTMLTitles = function(directory,i){
 
               if(anchorLink !== undefined){
                 titleOutput.push({name: titleName, anchor: anchorLink, filepath: itemPath});
-                var currentTime = new Date().getTime();
-                var fileTime = currentTime - lastTime;
-                console.log(itemPath + " | " + (fileTime) + "ms");
-                lastTime = currentTime;
+              }
+            });
+            $('.figure').each(function(i, element){
+              var singleTitle = $(this).html();
+              var linkStart = singleTitle.indexOf('<');
+              var linkEnd = singleTitle.indexOf('a>') + 2;
+              singleTitle = singleTitle.slice(linkStart,linkEnd);
+              anchorLink = $(singleTitle).attr('id');
+
+              if(anchorLink !== undefined){
+                titleOutput.push({name: anchorLink, anchor: anchorLink, filepath: itemPath});
+              }
+            });
+            $('.table').each(function(i, element){
+              var singleTitle = $(this).html();
+              var linkStart = singleTitle.indexOf('<');
+              var linkEnd = singleTitle.indexOf('a>') + 2;
+              singleTitle = singleTitle.slice(linkStart,linkEnd);
+              anchorLink = $(singleTitle).attr('id');
+
+              if(anchorLink !== undefined){
+                titleOutput.push({name: anchorLink, anchor: anchorLink, filepath: itemPath});
               }
             });
           }
