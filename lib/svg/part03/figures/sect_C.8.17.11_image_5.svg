@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg
+  PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
+     xmlns="http://www.w3.org/2000/svg"
+     version="1.1"
+     width="318.5437241791045px"
+     height="25.273800000000005px"
+     viewBox="0 0 318.5437241791045 25.273800000000005">
+   <metadata>
+      <pmml2svg:baseline-shift>8.781900000000004</pmml2svg:baseline-shift>
+   </metadata>
+   <g stroke="none"
+      fill="#000000"
+      text-rendering="optimizeLegibility"
+      font-family="STIXGeneral,STIXSizeOneSym">
+      <g xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
+         style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+         <g style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+            <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+                  x="3.36"
+                  y="16.4919"
+                  font-size="15">y'</text>
+            <text x="17.80167"
+                  y="16.4919"
+                  font-size="15"
+                  style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">=</text>
+            <g style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+               <g style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">
+                  <text x="32.24334" y="9.652885279187817" font-size="9.783654822335029">⎛</text>
+                  <text x="32.24334" y="19.338703553299496" font-size="9.783654822335029">⎝</text>
+               </g>
+               <text x="43.91225208955224"
+                     y="16.4919"
+                     font-size="15"
+                     style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">-</text>
+               <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+                     x="52.60058208955225"
+                     y="16.4919"
+                     font-size="15">y</text>
+               <text x="62.59391208955225"
+                     y="16.4919"
+                     font-size="15"
+                     style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">+</text>
+               <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+                     x="77.20224208955224"
+                     y="10.945200000000003"
+                     font-size="10.649999999999999">YPIXELS</text>
+               <text style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; "
+                     x="94.70019208955225"
+                     y="22.273800000000005"
+                     font-size="10.649999999999999">2</text>
+               <line x1="76.20224208955224"
+                     y1="12.636900000000002"
+                     x2="118.52314208955224"
+                     y2="12.636900000000002"
+                     fill="none"
+                     stroke="black"
+                     stroke-width="0.9375"/>
+               <g style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">
+                  <text x="123.02314208955224"
+                        y="9.652885279187817"
+                        font-size="9.783654822335029">⎞</text>
+                  <text x="123.02314208955224"
+                        y="19.338703553299496"
+                        font-size="9.783654822335029">⎠</text>
+               </g>
+            </g>
+            <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+                  x="126.85872417910448"
+                  y="16.4919"
+                  font-size="15">YCENTERPIXELVIEWANGLE</text>
+         </g>
+      </g>
+   </g>
+</svg>

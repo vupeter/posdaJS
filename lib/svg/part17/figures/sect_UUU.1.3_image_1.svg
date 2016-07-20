@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg
+  PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
+     xmlns="http://www.w3.org/2000/svg"
+     version="1.1"
+     width="89.38199000000002px"
+     height="27.880889999999997px"
+     viewBox="0 0 89.38199000000002 27.880889999999997">
+   <metadata>
+      <pmml2svg:baseline-shift>11.353739999999998</pmml2svg:baseline-shift>
+   </metadata>
+   <g stroke="none"
+      fill="#000000"
+      text-rendering="optimizeLegibility"
+      font-family="STIXGeneral,STIXSizeOneSym">
+      <g xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
+         style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+         <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+               x="3"
+               y="16.52715"
+               font-size="15">l</text>
+         <text x="11.351670000000002"
+               y="16.52715"
+               font-size="15"
+               style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">=</text>
+         <g style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+            <text x="25.79334"
+                  y="16.52715"
+                  font-size="15"
+                  style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">∑</text>
+            <g style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+               <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+                     x="40.50334"
+                     y="24.731789999999997"
+                     font-size="10.649999999999999">i</text>
+               <text x="46.4223757"
+                     y="24.731789999999997"
+                     font-size="10.649999999999999"
+                     style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">=</text>
+               <text style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; "
+                     x="56.675961400000006"
+                     y="24.731789999999997"
+                     font-size="10.649999999999999">0</text>
+            </g>
+            <g style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+               <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+                     x="40.50334"
+                     y="10.1994"
+                     font-size="10.649999999999999">i</text>
+               <text x="46.4223757"
+                     y="10.199399999999999"
+                     font-size="10.649999999999999"
+                     style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">=</text>
+               <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+                     x="56.88896140000001"
+                     y="10.1994"
+                     font-size="10.649999999999999">N</text>
+               <text x="66.9981757"
+                     y="10.199399999999999"
+                     font-size="10.649999999999999"
+                     style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">-</text>
+               <text style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; "
+                     x="72.91129000000001"
+                     y="10.1994"
+                     font-size="10.649999999999999">1</text>
+            </g>
+            <g style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+               <g style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+                  <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+                        x="78.23629000000001"
+                        y="16.52715"
+                        font-size="15">l</text>
+               </g>
+               <g style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+                  <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+                        x="83.42129000000001"
+                        y="20.0097"
+                        font-size="10.649999999999999">i</text>
+               </g>
+            </g>
+         </g>
+      </g>
+   </g>
+</svg>

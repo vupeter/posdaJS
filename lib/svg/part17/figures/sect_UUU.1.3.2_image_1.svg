@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg
+  PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
+     xmlns="http://www.w3.org/2000/svg"
+     version="1.1"
+     width="57.48834000000001px"
+     height="16.44px"
+     viewBox="0 0 57.48834000000001 16.44">
+   <metadata>
+      <pmml2svg:baseline-shift>3.1950000000000003</pmml2svg:baseline-shift>
+   </metadata>
+   <g stroke="none"
+      fill="#000000"
+      text-rendering="optimizeLegibility"
+      font-family="STIXGeneral,STIXSizeOneSym">
+      <g xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
+         style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+         <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+               x="3"
+               y="13.245000000000001"
+               font-size="15">d</text>
+         <text x="15.071670000000001"
+               y="13.245000000000001"
+               font-size="15"
+               style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">=</text>
+         <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+               x="29.513340000000003"
+               y="13.245000000000001"
+               font-size="15">r</text>
+         <text style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; "
+               x="35.693340000000006"
+               y="13.245000000000001"
+               font-size="15">Δ</text>
+         <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+               x="46.523340000000005"
+               y="13.245000000000001"
+               font-size="15">σ</text>
+      </g>
+   </g>
+</svg>

@@ -2,6 +2,14 @@ var app = angular.module('posdaJS', ['ngSanitize']);
 
 app.controller("posdaCtrl", function($scope) {
 
+  $scope.svgValue = 50;
+  $scope.svgStyle="height: auto; width: " + $scope.svgValue + "%;";
+
+    $scope.svgScaleChange = function(){
+      $scope.svgValue = document.getElementById('svgScaleInput').value;
+      $scope.svgStyle="height: auto; width: " + $scope.svgValue + "%;";
+    };
+
     $scope.showOnlyRequired = true;
 
     $scope.loadMoreCheck = function() {
@@ -23,11 +31,18 @@ app.controller("posdaCtrl", function($scope) {
     };
 
     $scope.changeMode = function() {
+      $scope.iodSelected = false;
+      $scope.showTableSelect = false;
         switch ($scope.modeSelect) {
             case "svg":
                 require(['lib/json/mode/svg.js'], function() {
-                    $scope.dataSelect = dataList;
-                    $scope.modeSelected = "svg";
+                  if ($scope.dataDump.mode.svg === undefined) {
+                      $scope.dataDump.mode.svg = {};
+                      $scope.dataDump.mode.svg.data = dataList;
+                  }
+                    $scope.dataSelect = $scope.dataDump.mode.svg.data;
+                    $scope.showTableSelect = true;
+                    $scope.svgSelected = true;
                     $scope.$apply();
                 });
                 break;
@@ -39,7 +54,6 @@ app.controller("posdaCtrl", function($scope) {
                     }
                     $scope.dataSelect = $scope.dataDump.mode.book.data;
                     $scope.showTableSelect = true;
-                    $scope.iodSelected = false;
                     $scope.$apply();
                 });
                 break;
@@ -60,6 +74,7 @@ app.controller("posdaCtrl", function($scope) {
                 break;
         }
         $scope.tableSelected = false;
+        $scope.svgShow = false;
     };
 
     $scope.commentRender = function(input, comment, iType, i) {
@@ -199,7 +214,18 @@ app.controller("posdaCtrl", function($scope) {
     };
 
     $scope.changeData = function() {
-        var filename;
+      var filename;
+      if($scope.svgSelected === true){
+        for (i = 0; i < $scope.dataSelect.table.length; i++) {
+            if ($scope.tableSelect == $scope.dataSelect.table[i].Title) {
+                filename = $scope.dataSelect.table[i].Name;
+                $scope.tableName = $scope.dataSelect.table[i].Name;
+                break;
+            }
+        }
+        $scope.svgPath = $scope.dataSelect.path + filename;
+        $scope.svgShow = true;
+      } else {
         var iodData;
         $scope.tableData = [];
         $scope.entities = [];
@@ -316,6 +342,7 @@ app.controller("posdaCtrl", function($scope) {
             $scope.loadMoreCheck();
             $scope.$apply();
         });
+      }
     };
 
     $scope.changeOrderBy = function(x) {

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg
+  PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
+     xmlns="http://www.w3.org/2000/svg"
+     version="1.1"
+     width="111.77824074626864px"
+     height="25.572px"
+     viewBox="0 0 111.77824074626864 25.572">
+   <metadata>
+      <pmml2svg:baseline-shift>8.931000000000001</pmml2svg:baseline-shift>
+   </metadata>
+   <g stroke="none"
+      fill="#000000"
+      text-rendering="optimizeLegibility"
+      font-family="STIXGeneral,STIXSizeOneSym">
+      <g xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
+         style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+         <g style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+            <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+                  x="3"
+                  y="16.641"
+                  font-size="15">c</text>
+            <text x="13.82667"
+                  y="16.641"
+                  font-size="15"
+                  style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">=</text>
+            <text style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; "
+                  x="28.268340000000002"
+                  y="16.641"
+                  font-size="15">2</text>
+            <text style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; "
+                  x="35.76834"
+                  y="16.641"
+                  font-size="15">tan</text>
+            <text style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; "
+                  x="55.09834"
+                  y="10.472999999999999"
+                  font-size="10.649999999999999">-1</text>
+            <g style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+               <g style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">
+                  <text x="66.21978999999999"
+                        y="9.75581725888325"
+                        font-size="9.935025380710659">⎛</text>
+                  <text x="66.21978999999999"
+                        y="19.5914923857868"
+                        font-size="9.935025380710659">⎝</text>
+               </g>
+               <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+                     x="76.04071537313432"
+                     y="9.10275"
+                     font-size="10.649999999999999">ρ</text>
+               <text style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; "
+                     x="75.84901537313432"
+                     y="22.422900000000002"
+                     font-size="10.649999999999999">2</text>
+               <line x1="74.61471537313432"
+                     y1="12.786"
+                     x2="82.40831537313431"
+                     y2="12.786"
+                     fill="none"
+                     stroke="black"
+                     stroke-width="0.9375"/>
+               <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+                     x="88.54161537313432"
+                     y="11.0943"
+                     font-size="10.649999999999999">π</text>
+               <text style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; "
+                     x="83.40831537313431"
+                     y="22.422900000000002"
+                     font-size="10.649999999999999">180</text>
+               <line x1="82.40831537313431"
+                     y1="12.786"
+                     x2="100.38331537313431"
+                     y2="12.786"
+                     fill="none"
+                     stroke="black"
+                     stroke-width="0.9375"/>
+               <g style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">
+                  <text x="104.88331537313431"
+                        y="9.75581725888325"
+                        font-size="9.935025380710659">⎞</text>
+                  <text x="104.88331537313431"
+                        y="19.5914923857868"
+                        font-size="9.935025380710659">⎠</text>
+               </g>
+            </g>
+         </g>
+      </g>
+   </g>
+</svg>

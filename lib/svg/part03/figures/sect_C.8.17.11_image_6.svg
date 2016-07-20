@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg
+  PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:pmml2svg="https://sourceforge.net/projects/pmml2svg/"
+     xmlns="http://www.w3.org/2000/svg"
+     version="1.1"
+     width="92.72332999999999px"
+     height="24.9574px"
+     viewBox="0 0 92.72332999999999 24.9574">
+   <metadata>
+      <pmml2svg:baseline-shift>6.09</pmml2svg:baseline-shift>
+   </metadata>
+   <g stroke="none"
+      fill="#000000"
+      text-rendering="optimizeLegibility"
+      font-family="STIXGeneral,STIXSizeOneSym">
+      <g xmlns:doc="http://nwalsh.com/xsl/documentation/1.0"
+         style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+         <g style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+            <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+                  x="3.6"
+                  y="18.8674"
+                  font-size="15">ρ</text>
+            <text x="15.32667"
+                  y="18.8674"
+                  font-size="15"
+                  style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">=</text>
+            <g style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+               <g style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+                  <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+                        x="37.67334"
+                        y="18.8674"
+                        font-size="15">x</text>
+                  <text x="46.045005"
+                        y="18.8674"
+                        font-size="15"
+                        style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">'</text>
+               </g>
+               <text style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; "
+                     x="49.745005"
+                     y="12.6994"
+                     font-size="10.649999999999999">2</text>
+               <text x="58.403335"
+                     y="18.8674"
+                     font-size="15"
+                     style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">+</text>
+               <g style="font-family: STIXGeneral,STIXSizeOneSym; fill: ; background-color: transparent; ">
+                  <text style="font-family: STIXGeneral, STIXSizeOneSym; font-style: italic; fill: black; background-color: transparent; "
+                        x="72.371665"
+                        y="18.8674"
+                        font-size="15">y</text>
+                  <text x="80.69832999999998"
+                        y="18.8674"
+                        font-size="15"
+                        style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; ">'</text>
+               </g>
+               <text style="font-family: STIXGeneral, STIXSizeOneSym; fill: black; background-color: transparent; "
+                     x="84.39832999999999"
+                     y="12.6994"
+                     font-size="10.649999999999999">2</text>
+            </g>
+            <line x1="30.518340000000002"
+                  y1="12.4787"
+                  x2="31.868340000000003"
+                  y2="8.68722"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="0.3"/>
+            <line x1="31.868340000000003"
+                  y1="8.68722"
+                  x2="33.89334"
+                  y2="21.9574"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="0.6"/>
+            <line x1="33.89334"
+                  y1="21.9574"
+                  x2="37.26834"
+                  y2="3"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="0.3"/>
+            <line x1="37.26834"
+                  y1="3"
+                  x2="90.47332999999999"
+                  y2="3"
+                  fill="none"
+                  stroke="black"
+                  stroke-width="0.3"/>
+         </g>
+      </g>
+   </g>
+</svg>
