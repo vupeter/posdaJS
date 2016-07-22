@@ -16,10 +16,6 @@
                 <div id="modeSelect" class="row">
                     <div class="col-xs-1">
                         <label class="selectLabel">Mode: </label>
-                        <div ng-show="showBookSelect">
-                          <br />
-                          <label class="selectLabel">Book: </label>
-                        </div>
                     </div>
                     <div class="col-xs-4">
                       <div class="row">
@@ -29,14 +25,21 @@
                             <option>Composite IODs</option>
                         </select>
                       </div>
-                        <div class="row" ng-show="showBookSelect">
-                          <br />
+                    </div>
+                    <div ng-show="showBookSelect">
+                      <div class="col-xs-offset-1 col-xs-1">
+                        <label class="selectLabel">Book: </label>
+                      </div>
+                      <div class="col-xs-4">
+                        <div class="row">
                           <select ng-show="showBookSelect" class="form-control" ng-model="bookSelect" ng-change="changeBook()">
                               <option ng-repeat="x in bookDataSelect.table">{{x.Title}}</option>
                           </select>
                         </div>
+                      </div>
                     </div>
-                    <div ng-show="showTableSelect">
+
+                    <div ng-show="showTableSelect && !showBookSelect">
                         <div class="col-xs-1 col-xs-offset-1">
                             <label class="selectLabel">Select: </label>
                         </div>
@@ -54,6 +57,26 @@
                             </span>
                         </div>
                     </div>
+                </div>
+
+                <div class="row" ng-show="showTableSelect && showBookSelect">
+                  <br />
+                  <div class="col-xs-1">
+                      <label class="selectLabel">Select: </label>
+                  </div>
+                  <div class="col-xs-10 input-group">
+                      <input class="form-control" list="tableSelectList" ng-show="tableSearchSwitch" type="text" ng-model="tableSelect" ng-change="changeData()">
+                      <datalist id="tableSelectList">
+                          <option ng-if="tableSearchSwitch" ng-repeat="x in dataSelect.table">{{x.Title}}</option>
+                      </datalist>
+                      <select class="form-control" id="dataSelect" ng-model="tableSelect" ng-hide="tableSearchSwitch" ng-change="changeData()">
+                          <option ng-repeat="x in dataSelect.table">{{x.Title}}</option>
+                      </select>
+                      <span class="input-group-addon">
+                        <input type="checkbox" ng-model="tableSearchSwitch" ng-change="tableSelected=svgShow=false;tableSelect=''">
+                        Search
+                      </span>
+                  </div>
                 </div>
                 <hr>
                 <div ng-show="tableSelected">
