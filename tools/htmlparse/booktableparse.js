@@ -42,48 +42,50 @@ var parsebookTablePaths = function(directory,i){
               $('table').each(function(i, element){
                 var tableData = [];
                 var tableName = $(this).attr('xml:id');
-                var tableXML = $(this).html();
-                var $$ = cheerio.load(tableXML,{
-                  normalizeWhitespace: true,
-                  xmlMode: true
-                });
-
-                var tableTitle = tableName + ":caption - " + $$('caption').text();
-
-                bookOutput.table.push({Title : tableTitle, Name : tableName});
-
-                var tableHeaders = [];
-                $$('th').each(function(i,element){
-                  tableHeaders.push($$(this).text().replace(/^\s+|\s+$/g,''));
-                });
-                if (tableHeaders[0] === "" && tableHeaders[1] === undefined){
-                  tableHeaders[0] = "Title";
-                  tableHeaders[1] = "Comment";
-                }
-                for(a=0;a<tableHeaders.length;a++){
-                  if(tableHeaders[a] === undefined){
-                    tableHeaders[a] = " ";
-                  }
-                }
-
-                $$('tr').each(function(i,element){
-                  var tableRow = $$(this).html();
-                  var tableRowObj = {};
-                  var $$$ = cheerio.load(tableRow,{
+                if(tableName !== undefined){
+                  var tableXML = $(this).html();
+                  var $$ = cheerio.load(tableXML,{
                     normalizeWhitespace: true,
                     xmlMode: true
                   });
-                  $$$('td').each(function(n,element){
 
-                    tableRowObj[tableHeaders[n]] = $$$(this).text().replace(/^\s+|\s+$/g,'');
+                  var tableTitle = tableName + ":caption - " + $$('caption').text();
+
+                  bookOutput.table.push({Title : tableTitle, Name : tableName});
+
+                  var tableHeaders = [];
+                  $$('th').each(function(i,element){
+                    tableHeaders.push($$(this).text().replace(/^\s+|\s+$/g,''));
                   });
-                  tableData.push(tableRowObj);
+                  if (tableHeaders[0] === "" && tableHeaders[1] === undefined){
+                    tableHeaders[0] = "Title";
+                    tableHeaders[1] = "Comment";
+                  }
+                  for(a=0;a<tableHeaders.length;a++){
+                    if(tableHeaders[a] === undefined){
+                      tableHeaders[a] = " ";
+                    }
+                  }
 
-                });
-                var jsonTableBookOutput = "datab = " + JSON.stringify(tableData) + ";";
-                var outputTableBookPath = outputDirectory + "/" +  currentDir + "/" + tableName + ".js";
-                fs.writeFileSync(outputTableBookPath, jsonTableBookOutput);
+                  $$('tr').each(function(i,element){
+                    var tableRow = $$(this).html();
+                    var tableRowObj = {};
+                    var $$$ = cheerio.load(tableRow,{
+                      normalizeWhitespace: true,
+                      xmlMode: true
+                    });
+                    $$$('td').each(function(n,element){
 
+                      tableRowObj[tableHeaders[n]] = $$$(this).text().replace(/^\s+|\s+$/g,'');
+                    });
+                    tableData.push(tableRowObj);
+
+                  });
+                  var jsonTableBookOutput = "datab = " + JSON.stringify(tableData) + ";";
+                  var outputTableBookPath = outputDirectory + "/" +  currentDir + "/" + tableName + ".js";
+                  fs.writeFileSync(outputTableBookPath, jsonTableBookOutput);
+
+                }
               });
 
               var jsonBookOutput = "dataList = " + JSON.stringify(bookOutput) + ";";
