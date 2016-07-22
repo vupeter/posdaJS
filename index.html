@@ -16,6 +16,10 @@
                 <div id="modeSelect" class="row">
                     <div class="col-xs-1">
                         <label class="selectLabel">Mode: </label>
+                        <div ng-show="showBookSelect">
+                          <br />
+                          <label class="selectLabel">Book: </label>
+                        </div>
                     </div>
                     <div class="col-xs-4">
                         <select class="form-control" ng-model="modeSelect" ng-change="changeMode()">
@@ -23,9 +27,12 @@
 							              <option>svg</option>
                             <option>Composite IODs</option>
                         </select>
-                        <select ng-show="showBookSelect" class="form-control" ng-model="bookSelect" ng-change="changeBook()">
-                            <option ng-repeat="x in bookDataSelect.table">{{x.Title}}</option>
-                        </select>
+                        <div ng-show="showBookSelect">
+                          <br />
+                          <select ng-show="showBookSelect" class="form-control" ng-model="bookSelect" ng-change="changeBook()">
+                              <option ng-repeat="x in bookDataSelect.table">{{x.Title}}</option>
+                          </select>
+                        </div>
                     </div>
                     <div ng-show="showTableSelect">
                         <div class="col-xs-1 col-xs-offset-1">
