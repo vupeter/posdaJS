@@ -35,7 +35,7 @@ var parseSVGPaths = function(directory,i){
               console.log(itemPath + " | " + (fileTime) + "ms");
               lastTime = currentTime;
 
-              var partStart = itemPath.indexOf("p");
+              var partStart = itemPath.indexOf("part");
               var svgPath = itemPath.slice(partStart);
               var outputPath = outputDirectory+"/"+itemPath.replace("chtml/","");
 
