@@ -159,7 +159,6 @@ app.controller("posdaCtrl", function($scope) {
               if(input.attrs.linkend.slice(0,7) != "sect_C."){
                 if(input.attrs.linkend.slice(0,7) == "biblio_"){
                   linkText = input.attrs.linkend;
-                  console.log(input);
                 }
               }
                 comment += '<a href="' + input.linkOut + '" target="_blank">' + linkText + '</a>'; //this works
@@ -312,7 +311,6 @@ app.controller("posdaCtrl", function($scope) {
                 for(var i in bookTableData[1]){
                   $scope.tableHeaders.push(i);
                 }
-                console.log(iodData);
             }
 
             if($scope.bookSelected){
@@ -321,7 +319,9 @@ app.controller("posdaCtrl", function($scope) {
                 for(var prop in bookTableData[j]){
                   rowCells.push(bookTableData[j][prop]);
                 }
-                $scope.tableData.push(rowCells);
+                if(rowCells != []){
+                  $scope.tableData.push(rowCells);
+                }
               }
             }
 
@@ -375,7 +375,6 @@ app.controller("posdaCtrl", function($scope) {
               $scope.changeOrderBy('element');
               $scope.requirementCheck();
             }
-            console.log($scope.tableData);
             $scope.tableSelected = true;
             $scope.loadMoreCheck();
             $scope.$apply();

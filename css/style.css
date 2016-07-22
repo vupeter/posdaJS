@@ -19,3 +19,8 @@ label {
   font-size:16px;
   margin-top: 5px;
 }
+select{
+  float: right;
+  position:relative;
+  right:1px;
+}

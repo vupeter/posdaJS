@@ -48,12 +48,23 @@ var parsebookTablePaths = function(directory,i){
                   xmlMode: true
                 });
 
-                var tableTitle = $$('caption').text();
+                var tableTitle = tableName + ":caption - " + $$('caption').text();
 
                 bookOutput.table.push({Title : tableTitle, Name : tableName});
 
                 var tableHeaders = [];
-                tableHeaders.push($$('th').text());
+                $$('th').each(function(i,element){
+                  tableHeaders.push($$(this).text().replace(/^\s+|\s+$/g,''));
+                });
+                if (tableHeaders[0] === "" && tableHeaders[1] === undefined){
+                  tableHeaders[0] = "Title";
+                  tableHeaders[1] = "Comment";
+                }
+                for(a=0;a<tableHeaders.length;a++){
+                  if(tableHeaders[a] === undefined){
+                    tableHeaders[a] = " ";
+                  }
+                }
 
                 $$('tr').each(function(i,element){
                   var tableRow = $$(this).html();
@@ -63,11 +74,8 @@ var parsebookTablePaths = function(directory,i){
                     xmlMode: true
                   });
                   $$$('td').each(function(n,element){
-                    if (tableHeaders[0] === "" && tableHeaders[1] === undefined){
-                      tableHeaders[0] = "Title";
-                      tableHeaders[1] = "Comment";
-                    }
-                    tableRowObj[tableHeaders[n]] = $$$(this).text();
+
+                    tableRowObj[tableHeaders[n]] = $$$(this).text().replace(/^\s+|\s+$/g,'');
                   });
                   tableData.push(tableRowObj);
 
