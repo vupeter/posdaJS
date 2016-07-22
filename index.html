@@ -155,7 +155,7 @@
                             <thead>
                                 <tr>
 
-                                    <th ng-repeat="x in tableHeaders" ng-show="bookSelected">
+                                    <th ng-repeat="x in tableHeaders" ng-click="changeOrderBy(x)" ng-show="bookSelected">
                                       {{x}}
                                     </th>
 
@@ -175,7 +175,7 @@
 
                                 <tr ng-repeat="x in tableData | orderBy:orderByThis | filter:tableSearch | filter: modulesChecked | filter:filterRequired | limitTo:rowsDisplayed">
 
-                                    <td ng-if="bookSelected" ng-repeat="n in tableData[$index]">{{n}}</td>
+                                    <td ng-if="bookSelected" ng-repeat="n in tableData[$index]" rowspan="{{n.rowspan}}" colspan="{{n.colspan}}">{{n.text}}</td>
 
                                     <td ng-if="iodSelected">{{x.element}}</td>
                                     <td ng-if="iodSelected">{{x.entity}}</td>

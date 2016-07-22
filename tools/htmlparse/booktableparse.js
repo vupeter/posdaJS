@@ -75,8 +75,7 @@ var parsebookTablePaths = function(directory,i){
                       xmlMode: true
                     });
                     $$$('td').each(function(n,element){
-
-                      tableRowObj[tableHeaders[n]] = $$$(this).text().replace(/^\s+|\s+$/g,'');
+                      tableRowObj[tableHeaders[n]] = {colspan:$$$(this).attr('colspan') , rowspan: $$$(this).attr('rowspan'), text:$$$(this).text().replace(/^\s+|\s+$/g,'')};
                     });
                     tableData.push(tableRowObj);
 
