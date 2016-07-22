@@ -32,7 +32,8 @@ app.controller("posdaCtrl", function($scope) {
     };
 
     $scope.changeBook = function(){
-
+      $scope.tableSelected = false;
+      $scope.showTableSelect = false;
 
       var fileLoc = $scope.bookSelect + "/tables.js";
       var path = $scope.bookDataSelect.path;
@@ -63,6 +64,7 @@ app.controller("posdaCtrl", function($scope) {
       $scope.bookSelected = false;
       $scope.showTableSelect = false;
       $scope.showBookSelect = false;
+      $scope.svgSelected = false;
         switch ($scope.modeSelect) {
             case "svg":
                 require(['lib/json/mode/svg.js'], function() {
@@ -84,6 +86,7 @@ app.controller("posdaCtrl", function($scope) {
                     }
                     $scope.bookDataSelect = $scope.dataDump.mode.book.data;
                     $scope.bookSelected = true;
+                    $scope.bookSelect = "";
                     $scope.showBookSelect = true;
                     $scope.$apply();
                 });

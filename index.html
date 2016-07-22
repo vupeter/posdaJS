@@ -156,7 +156,7 @@
 
                                 <tr ng-repeat="x in tableData | orderBy:orderByThis | filter:tableSearch | filter: modulesChecked | filter:filterRequired | limitTo:rowsDisplayed">
 
-                                    <td ng-repeat="n in tableData[$index]">{{n}}</td>
+                                    <td ng-if="bookSelected" ng-repeat="n in tableData[$index]">{{n}}</td>
 
                                     <td ng-if="iodSelected">{{x.element}}</td>
                                     <td ng-if="iodSelected">{{x.entity}}</td>
