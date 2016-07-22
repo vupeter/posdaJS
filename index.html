@@ -23,6 +23,9 @@
 							              <option>svg</option>
                             <option>Composite IODs</option>
                         </select>
+                        <select ng-show="showBookSelect" class="form-control" ng-model="bookSelect" ng-change="changeBook()">
+                            <option ng-repeat="x in bookDataSelect.table">{{x.Title}}</option>
+                        </select>
                     </div>
                     <div ng-show="showTableSelect">
                         <div class="col-xs-1 col-xs-offset-1">
@@ -125,17 +128,10 @@
                         <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th ng-click="changeOrderBy('UIDValue')" ng-show="uidSelected">UID Value</th>
-                                    <th ng-click="changeOrderBy('UIDName')" ng-show="uidSelected">UID Name</th>
-                                    <th ng-click="changeOrderBy('UIDType')" ng-show="uidSelected">UID Type</th>
-                                    <th ng-click="changeOrderBy('Part')" ng-show="uidSelected">Part</th>
 
-                                    <th ng-click="changeOrderBy('Tag')" ng-show="dataElementSelected">Tag</th>
-                                    <th ng-click="changeOrderBy('Name')" ng-show="dataElementSelected">Name</th>
-                                    <th ng-click="changeOrderBy('Keyword')" ng-show="dataElementSelected">Keyword</th>
-                                    <th ng-click="changeOrderBy('VR')" ng-show="dataElementSelected">VR</th>
-                                    <th ng-click="changeOrderBy('VM')" ng-show="dataElementSelected">VM</th>
-                                    <th ng-click="changeOrderBy('_empty_')" ng-show="dataElementSelected"></th>
+                                    <th ng-repeat="x in tableHeaders" ng-show="bookSelected">
+                                      {{x}}
+                                    </th>
 
                                     <th ng-click="changeOrderBy('element')" ng-show="iodSelected">Element</th>
                                     <th ng-click="changeOrderBy('entity')" ng-show="iodSelected">Entity</th>
@@ -149,18 +145,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="x in tableData | orderBy:orderByThis | filter:tableSearch | filter: modulesChecked | filter:filterRequired | limitTo:rowsDisplayed">
-                                    <td ng-if="uidSelected">{{x.UIDValue}}</td>
-                                    <td ng-if="uidSelected">{{x.UIDName}}</td>
-                                    <td ng-if="uidSelected">{{x.UIDType}}</td>
-                                    <td ng-if="uidSelected">{{x.Part}}</td>
 
-                                    <td ng-if="dataElementSelected">{{x.Tag}}</td>
-                                    <td ng-if="dataElementSelected">{{x.Name}}</td>
-                                    <td ng-if="dataElementSelected">{{x.Keyword}}</td>
-                                    <td ng-if="dataElementSelected">{{x.VR}}</td>
-                                    <td ng-if="dataElementSelected">{{x.VM}}</td>
-                                    <td ng-if="dataElementSelected">{{x._empty_}}</td>
+
+                                <tr ng-repeat="x in tableData | orderBy:orderByThis | filter:tableSearch | filter: modulesChecked | filter:filterRequired | limitTo:rowsDisplayed">
+
+                                    <td ng-repeat="n in tableData[$index]">{{n}}</td>
 
                                     <td ng-if="iodSelected">{{x.element}}</td>
                                     <td ng-if="iodSelected">{{x.entity}}</td>

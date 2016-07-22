@@ -26,13 +26,43 @@ app.controller("posdaCtrl", function($scope) {
         "mode": {
             "svg": undefined,
             "book": undefined,
-            "iod": undefined
+            "iod": undefined,
+            "bookTable": []
         }
+    };
+
+    $scope.changeBook = function(){
+
+
+      var fileLoc = $scope.bookSelect + "/tables.js";
+      var path = $scope.bookDataSelect.path;
+      var filePath = path + fileLoc;
+      require([filePath], function() {
+        var bookInDump = false;
+        for (i = 0; i < $scope.dataDump.mode.bookTable.length; i++) {
+            if ($scope.bookSelect == $scope.dataDump.mode.bookTable[i].book) {
+                $scope.dataSelect = $scope.dataDump.mode.bookTable[i].data;
+                bookInDump = true;
+                break;
+            }
+        }
+        if (!bookInDump) {
+            $scope.dataSelect = dataList;
+            $scope.dataDump.mode.bookTable.push({
+                "book": $scope.bookSelect,
+                "data": dataList
+            });
+        }
+          $scope.showTableSelect = true;
+          $scope.$apply();
+      });
     };
 
     $scope.changeMode = function() {
       $scope.iodSelected = false;
+      $scope.bookSelected = false;
       $scope.showTableSelect = false;
+      $scope.showBookSelect = false;
         switch ($scope.modeSelect) {
             case "svg":
                 require(['lib/json/mode/svg.js'], function() {
@@ -50,10 +80,11 @@ app.controller("posdaCtrl", function($scope) {
                 require(['lib/json/mode/book.js'], function() {
                     if ($scope.dataDump.mode.book === undefined) {
                         $scope.dataDump.mode.book = {};
-                        $scope.dataDump.mode.book.data = dataList;
+                        $scope.dataDump.mode.book.data = bookList;
                     }
-                    $scope.dataSelect = $scope.dataDump.mode.book.data;
-                    $scope.showTableSelect = true;
+                    $scope.bookDataSelect = $scope.dataDump.mode.book.data;
+                    $scope.bookSelected = true;
+                    $scope.showBookSelect = true;
                     $scope.$apply();
                 });
                 break;
@@ -227,6 +258,7 @@ app.controller("posdaCtrl", function($scope) {
         $scope.svgShow = true;
       } else {
         var iodData;
+        var bookTableData;
         $scope.tableData = [];
         $scope.entities = [];
         $scope.modules = [];
@@ -236,20 +268,6 @@ app.controller("posdaCtrl", function($scope) {
                 $scope.tableName = $scope.dataSelect.table[i].Name;
                 break;
             }
-        }
-
-        if ($scope.tableSelect == "table_A-1:caption - UID Values") {
-            $scope.uidSelected = true;
-            $scope.dataElementSelected = false;
-            $scope.iodSelected = false;
-        } else if ($scope.tableSelect == "table_6-1:caption - Registry of DICOM Data Element") {
-            $scope.uidSelected = false;
-            $scope.dataElementSelected = true;
-            $scope.iodSelected = false;
-        } else {
-            $scope.uidSelected = false;
-            $scope.dataElementSelected = false;
-            $scope.iodSelected = true;
         }
 
         var filepath = $scope.dataSelect.path + $scope.dataSelect.prefix + filename + $scope.dataSelect.suffix;
@@ -275,70 +293,87 @@ app.controller("posdaCtrl", function($scope) {
                 var bookDataInDump = false;
                 for (i = 0; i < $scope.dataDump.book.length; i++) {
                     if ($scope.tableSelect == $scope.dataDump.book[i].table) {
-                        $scope.tableData = $scope.dataDump.book[i].data;
+                        bookTableData = $scope.dataDump.book[i].data;
                         bookDataInDump = true;
                         break;
                     }
                 }
                 if (!bookDataInDump) {
-                    $scope.tableData = datab;
+                    bookTableData = datab;
                     $scope.dataDump.book.push({
                         "table": $scope.tableSelect,
                         "data": datab
                     });
                 }
+                $scope.tableHeaders = [];
+                for(var i in bookTableData[1]){
+                  $scope.tableHeaders.push(i);
+                }
+                console.log(iodData);
+            }
+
+            if($scope.bookSelected){
+              for(j=0;j<bookTableData.length;j++){
+                var rowCells = [];
+                for(var prop in bookTableData[j]){
+                  rowCells.push(bookTableData[j][prop]);
+                }
+                $scope.tableData.push(rowCells);
+              }
             }
 
             for (var dataRow in iodData) {
                 var dataRowMod = iodData[dataRow];
-                dataRowMod.element = dataRow;
-                dataRowMod.desc = $scope.commentRender(dataRowMod.desc, "");
-                dataRowMod.required = $scope.isReq3(dataRowMod);
-                $scope.tableData.push(dataRowMod);
+                  dataRowMod.element = dataRow;
+                  dataRowMod.desc = $scope.commentRender(dataRowMod.desc, "");
+                  dataRowMod.required = $scope.isReq3(dataRowMod);
+                  $scope.tableData.push(dataRowMod);
 
 
-                //Entity+module rendering starts here
-                var entityExists = false;
-                for (i = 0; i < $scope.entities.length; i++) {
-                    if (dataRowMod.entity == $scope.entities[i].name) {
-                        entityExists = true;
-                        var moduleExists = false;
-                        for (n = 0; n < $scope.modules[i].length; n++) {
-                            if (dataRowMod.module == $scope.modules[i][n].name) {
-                                moduleExists = true;
-                                break;
-                            }
-                        }
-                        if (!moduleExists && dataRowMod.module !== undefined) {
-                            $scope.modules[i].push({
-                                name: dataRowMod.module,
-                                selected: true
-                            });
-                        }
-                        break;
-                    }
-                }
-                if (!entityExists && dataRowMod.entity !== undefined) {
-                    $scope.entities.push({
-                        name: dataRowMod.entity,
-                        selected: true
-                    });
-                    $scope.modules.push([]);
-                    $scope.modules[$scope.entities.length - 1].push({
-                        name: dataRowMod.module,
-                        selected: true
-                    });
-                }
+                  //Entity+module rendering starts here
+                  var entityExists = false;
+                  for(i = 0; i < $scope.entities.length; i++){
+                      if (dataRowMod.entity == $scope.entities[i].name) {
+                          entityExists = true;
+                          var moduleExists = false;
+                          for (n = 0; n < $scope.modules[i].length; n++) {
+                              if (dataRowMod.module == $scope.modules[i][n].name) {
+                                  moduleExists = true;
+                                  break;
+                              }
+                          }
+                          if (!moduleExists && dataRowMod.module !== undefined) {
+                              $scope.modules[i].push({
+                                  name: dataRowMod.module,
+                                  selected: true
+                              });
+                          }
+                          break;
+                      }
+                  }
+                  if (!entityExists && dataRowMod.entity !== undefined) {
+                      $scope.entities.push({
+                          name: dataRowMod.entity,
+                          selected: true
+                      });
+                      $scope.modules.push([]);
+                      $scope.modules[$scope.entities.length - 1].push({
+                          name: dataRowMod.module,
+                          selected: true
+                      });
+                  }
 
+              if ($scope.vrShow === true && $scope.iodSelected || $scope.vmShow === true && $scope.iodSelected) {
+                  $scope.updateVRVM();
+              }
             }
-
-            if ($scope.vrShow === true && $scope.iodSelected || $scope.vmShow === true && $scope.iodSelected) {
-                $scope.updateVRVM();
+            if($scope.iodSelected){
+              $scope.filterModule();
+              $scope.changeOrderBy('element');
+              $scope.requirementCheck();
             }
+            console.log($scope.tableData);
             $scope.tableSelected = true;
-            $scope.filterModule();
-            $scope.changeOrderBy('element');
-            $scope.requirementCheck();
             $scope.loadMoreCheck();
             $scope.$apply();
         });
