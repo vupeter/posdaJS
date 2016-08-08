@@ -1,0 +1,7 @@
+{
+  "name": "posdaJS-tools",
+  "version": "1.0",
+  "dependencies": {
+    "cheerio": "*"
+  }
+}
