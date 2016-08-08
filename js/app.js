@@ -39,20 +39,13 @@ app.controller("posdaCtrl", function($scope) {
       var path = $scope.bookDataSelect.path;
       var filePath = path + fileLoc;
       require([filePath], function() {
-        var bookInDump = false;
-        for (i = 0; i < $scope.dataDump.mode.bookTable.length; i++) {
-            if ($scope.bookSelect == $scope.dataDump.mode.bookTable[i].book) {
-                $scope.dataSelect = $scope.dataDump.mode.bookTable[i].data;
-                bookInDump = true;
-                break;
-            }
-        }
-        if (!bookInDump) {
+        if ($scope.dataDump.mode.bookTable[$scope.bookSelect] !== undefined) {
+            $scope.dataSelect = $scope.dataDump.mode.bookTable[$scope.bookSelect].data;
+        } else {
             $scope.dataSelect = dataList;
-            $scope.dataDump.mode.bookTable.push({
-                "book": $scope.bookSelect,
-                "data": dataList
-            });
+            $scope.dataDump.mode.bookTable[$scope.bookSelect] = {};
+            $scope.dataDump.mode.bookTable[$scope.bookSelect].book = $scope.bookSelect;
+            $scope.dataDump.mode.bookTable[$scope.bookSelect].data = dataList;
         }
           $scope.showTableSelect = true;
           $scope.$apply();
@@ -182,41 +175,38 @@ app.controller("posdaCtrl", function($scope) {
         return comment;
     };
 
-    $scope.getFromDataElement = function(tag, thing) {
-        for (i = 0; i < datab.length; i++) {
-            if (tag == datab[i].Tag) {
-                return datab[i][thing];
-            }
-        }
-    };
-
     $scope.vrvmClicked = false;
 
     $scope.updateVRVM = function() {
+      $scope.vrvmData = {};
+      for(m=0;m<datab.length;m++){
+        if (datab[m].Tag !== undefined){
+          $scope.vrvmData[datab[m].Tag.text] = {};
+          $scope.vrvmData[datab[m].Tag.text].vr = datab[m].VR.text;
+          $scope.vrvmData[datab[m].Tag.text].vm = datab[m].VM.text;
+        }
+      }
         for (n = 0; n < $scope.tableData.length; n++) {
             var lastElement = $scope.tableData[n].element.slice(-11);
-            $scope.tableData[n].vr = $scope.getFromDataElement(lastElement, "VR");
-            $scope.tableData[n].vm = $scope.getFromDataElement(lastElement, "VM");
+            if($scope.vrvmData[lastElement] !== undefined){
+              $scope.tableData[n].vr = $scope.vrvmData[lastElement].vr;
+              $scope.tableData[n].vm = $scope.vrvmData[lastElement].vm;
+            }
         }
     };
 
     $scope.getVRVM = function() {
         if ($scope.vrvmClicked === false) {
             require(["lib/json/book/part06/table_6-1"], function() {
-                var bookDataInDump = false;
-                for (i = 0; i < $scope.dataDump.book.length; i++) {
-                    if ("table_6-1:caption - Registry of DICOM Data Element" == $scope.dataDump.book[i].table) {
-                        datab = $scope.dataDump.book[i].data;
-                        bookDataInDump = true;
-                        break;
-                    }
-                }
-                if (!bookDataInDump) {
-                    $scope.dataDump.book.push({
-                        "table": datab,
-                        "data": datab
-                    });
-                }
+              if ($scope.dataDump.book["table_6-1:caption - Registry of DICOM Data Elements"] !== undefined) {
+                  bookTableData = $scope.dataDump.book[$scope.tableSelect].data;
+
+              } else {
+                  bookTableData = datab;
+                  $scope.dataDump.book[$scope.tableSelect] = {};
+                  $scope.dataDump.book[$scope.tableSelect].table = "table_6-1:caption - Registry of DICOM Data Elements";
+                  $scope.dataDump.book[$scope.tableSelect].data = datab;
+              }
                 $scope.updateVRVM();
                 $scope.$apply();
             });
@@ -292,21 +282,14 @@ app.controller("posdaCtrl", function($scope) {
                     });
                 }
             } else {
-                var bookDataInDump = false;
-                for (i = 0; i < $scope.dataDump.book.length; i++) {
-                    if ($scope.tableSelect == $scope.dataDump.book[i].table) {
-                        bookTableData = $scope.dataDump.book[i].data;
-                        bookDataInDump = true;
-                        break;
-                    }
-                }
-                if (!bookDataInDump) {
-                    bookTableData = datab;
-                    $scope.dataDump.book.push({
-                        "table": $scope.tableSelect,
-                        "data": datab
-                    });
-                }
+              if ($scope.dataDump.book[$scope.tableSelect] !== undefined) {
+                  bookTableData = $scope.dataDump.book[$scope.tableSelect].data;
+              } else {
+                  bookTableData = datab;
+                  $scope.dataDump.book[$scope.tableSelect] = {};
+                  $scope.dataDump.book[$scope.tableSelect].table = $scope.tableSelect;
+                  $scope.dataDump.book[$scope.tableSelect].data = datab;
+              }
                 $scope.tableHeaders = [];
                 for(var i in bookTableData[1]){
                   $scope.tableHeaders.push(i);
