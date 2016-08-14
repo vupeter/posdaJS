@@ -13,11 +13,12 @@ app.controller("posdaCtrl", function($scope) {
     $scope.showOnlyRequired = true;
 
     $scope.loadMoreCheck = function() {
-        if ($scope.tableData.length > $scope.rowsDisplayed) {
+        if ($scope.filteredTable.length > $scope.rowsDisplayed) {
             $scope.endTable = "Load more...";
         } else {
             $scope.endTable = "";
         }
+        console.log($scope.filteredTable);
     };
 
     $scope.dataDump = {
@@ -192,6 +193,7 @@ app.controller("posdaCtrl", function($scope) {
               $scope.tableData[n].vr = $scope.vrvmData[lastElement].vr;
               $scope.tableData[n].vm = $scope.vrvmData[lastElement].vm;
             }
+
         }
     };
 
@@ -199,7 +201,7 @@ app.controller("posdaCtrl", function($scope) {
         if ($scope.vrvmClicked === false) {
             require(["lib/json/book/part06/table_6-1"], function() {
               if ($scope.dataDump.book["table_6-1:caption - Registry of DICOM Data Elements"] !== undefined) {
-                  bookTableData = $scope.dataDump.book[$scope.tableSelect].data;
+                  bookTableData = $scope.dataDump.book["table_6-1:caption - Registry of DICOM Data Elements"].data;
 
               } else {
                   bookTableData = datab;
@@ -359,6 +361,7 @@ app.controller("posdaCtrl", function($scope) {
               $scope.requirementCheck();
             }
             $scope.tableSelected = true;
+            $scope.$apply();
             $scope.loadMoreCheck();
             $scope.$apply();
         });

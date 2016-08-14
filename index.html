@@ -27,7 +27,10 @@
                       <div class="row">
                         <select class="form-control" ng-model="modeSelect" ng-change="changeMode()">
                             <option>book</option>
-							              <option>svg</option>
+							              <!--
+                            hiding SVG for now, not needed
+                            <option>svg</option>
+                            -->
                             <option>Composite IODs</option>
                         </select>
                       </div>
@@ -179,7 +182,7 @@
                             <tbody>
 
 
-                                <tr ng-repeat="x in tableData | orderBy:orderByThis | filter:tableSearch | filter: modulesChecked | filter:filterRequired | limitTo:rowsDisplayed">
+                                <tr ng-repeat="x in filteredTable = (tableData | filter:tableSearch | filter: modulesChecked | filter:filterRequired)  | limitTo:rowsDisplayed | orderBy:orderByThis">
 
                                     <td ng-if="bookSelected" ng-repeat="n in tableData[$index]" rowspan="{{n.rowspan}}" colspan="{{n.colspan}}">{{n.text}}</td>
 
