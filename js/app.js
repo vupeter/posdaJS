@@ -18,7 +18,6 @@ app.controller("posdaCtrl", function($scope) {
         } else {
             $scope.endTable = "";
         }
-        console.log($scope.filteredTable);
     };
 
     $scope.dataDump = {
@@ -72,7 +71,7 @@ app.controller("posdaCtrl", function($scope) {
                     $scope.$apply();
                 });
                 break;
-            case "book":
+            case "Tables by Part":
                 require(['lib/json/mode/book.js'], function() {
                     if ($scope.dataDump.mode.book === undefined) {
                         $scope.dataDump.mode.book = {};
@@ -440,4 +439,23 @@ app.controller("posdaCtrl", function($scope) {
         $scope.loadMoreCheck();
     };
 
+    $scope.generateCSV = function(){
+      var csvData = "data:text/csv;charset=utf-8,";
+      $scope.tableData.forEach(function(infoArray, index){
+
+        var dataString = '';
+        for (var csvRow in infoArray) {
+          var fieldString = '"' + infoArray[csvRow] + '"';
+          dataString += fieldString + ",";
+        }
+        csvData += index < data.length ? dataString+ "\n" : dataString;
+      });
+      var encodedUri = encodeURI(csvData);
+      var link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", $scope.tableSelect+".csv");
+      document.body.appendChild(link); // Required for FF
+
+      link.click();
+    };
 });
