@@ -1,6 +1,6 @@
 #posdaJS Online Live Demo
 
-http://petervu/posdajs/
+http://petervu.ca/posdajs/
 
 ##What is posdaJS?
 
@@ -90,6 +90,6 @@ node svgparse.js <HTMLDirectory> <SVGListOutputFile>
 
 To enable SVG viewing modify uncomment '<option>svg</option>' from the 'index.html' page.
 
-##License
+#License
 
 TBD, Need to ask mentor.
