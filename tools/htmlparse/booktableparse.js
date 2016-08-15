@@ -113,7 +113,7 @@ if(outputDirectory === undefined || directoryInput === undefined){
   }
 	parsebookTablePaths(directoryInput);
 
-  jsonBookPartOutput = "bookList = " + JSON.stringify(bookPartOutput) + ";";
+  jsonBookPartOutput = "dataList = " + JSON.stringify(bookPartOutput) + ";";
 
   fs.writeFileSync(outputDirectory+"/book.js", jsonBookPartOutput);
   var currentTime = new Date().getTime();

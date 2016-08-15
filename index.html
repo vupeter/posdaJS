@@ -11,6 +11,7 @@
     <script src="js/angular-sanitize.min.js"></script>
     <script src="js/require.min.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/factory.js"></script>
 </head>
 
 <body ng-app="posdaJS" ng-controller="posdaCtrl">
@@ -36,8 +37,7 @@
                       <div class="row">
                         <select class="form-control" ng-model="modeSelect" ng-change="changeMode()">
                             <option>Tables by Part</option>
-							              <!--
-                            hiding SVG for now, not needed
+                            <!-- hiding SVG for now, not needed
                             <option>svg</option>
                             -->
                             <option>Composite IODs</option>
@@ -128,12 +128,12 @@
                         <div class="row">
                             <div class="col-xs-offset-3 col-xs-2">
                                 <center>
-                                    <button class="btn" ng-click="selectAll()">Select all</button>
+                                    <button class="btn" ng-click="changeAll(true)">Select all</button>
                                 </center>
                             </div>
                             <div class="col-xs-2">
                                     <center>
-                                        <button class="btn" ng-click="deselectAll()">Deselect all</button>
+                                        <button class="btn" ng-click="changeAll(false)">Deselect all</button>
                                     </center>
                             </div>
                         </div>
@@ -189,10 +189,7 @@
                             <tbody>
 
 
-                                <tr ng-repeat="x in filteredTable = (tableData | filter:tableSearch | filter: modulesChecked | filter:filterRequired)  | limitTo:rowsDisplayed | orderBy:orderByThis">
-
-                                    <td ng-if="bookSelected" ng-repeat="n in tableData[$index]" rowspan="{{n.rowspan}}" colspan="{{n.colspan}}">{{n.text}}</td>
-
+                                <tr ng-init="loadMoreCheck()" ng-repeat="x in filteredTable = (tableData | filter:tableSearch | filter: modulesChecked | filter:filterRequired)  | limitTo:rowsDisplayed | orderBy:orderByThis" ng-if="iodSelected">
                                     <td ng-if="iodSelected">{{x.element}}</td>
                                     <td ng-if="iodSelected">{{x.entity}}</td>
                                     <td ng-if="iodSelected">{{x.module}}</td>
@@ -202,6 +199,9 @@
                                     <td ng-if="vmShow && iodSelected">{{x.vm}}</td>
                                     <td ng-if="iodSelected">{{x.name}}</td>
                                     <td ng-bind-html="x.desc" ng-if="iodSelected"></td>
+                                </tr>
+                                <tr ng-repeat="x in filteredTable = (tableData) | limitTo:rowsDisplayed | orderBy:orderByThis" ng-if="bookSelected">
+                                  <td ng-repeat="n in tableData[$index]" rowspan="{{n.rowspan}}" colspan="{{n.colspan}}">{{n.text}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -215,13 +215,11 @@
 
                 <div id="SVG" ng-if="svgShow">
                   <center>
-                      <span>Slide bar to zoom: <input id="svgScaleInput" type="range" ng-model="svgValue" min="50" max="100" value="$scope.svgValue" ng-change="svgScaleChange()"></span>
+                      <span>Slide bar to zoom: <input id="svgScaleInput" type="range" ng-model="svgScale" min="50" max="100" value="50" ng-change="svgScaleChange()" ng-init="svgScaleChange()"></span>
                     <br />
                     <img ng-src="{{svgPath}}" style="{{svgStyle}}" />
                   </center>
                 </div>
-
-
 
             </div>
         </div>
