@@ -8,7 +8,7 @@ posdaJS is a client sided DICOM table browser based on [posda](https://github.co
 
 ##Installation
 
-Simply download the zip file [here](#) or clone this repository and run 'index.html'.
+Simply download the zip file [here](https://github.com/vupeter/posdaJS/blob/master/posdaJS.zip) or clone this repository and run 'index.html'.
 
 #Updating Tables
 
@@ -92,4 +92,4 @@ To enable SVG viewing modify uncomment '<option>svg</option>' from the 'index.ht
 
 #License
 
-TBD, Need to ask mentor.
+MIT License. For more information please see Lincense.md
