@@ -266,7 +266,11 @@ app.factory('render', function($q) {
         if (input === null) {
             input = ""; //input = "\r\n";
         }
-        comment += " " + input;
+        if(input !== undefined){
+          if (input.match(/[a-z]/i)) {
+            comment += " " + input;
+          }
+        }
     }
     return comment;
   };
@@ -449,6 +453,67 @@ app.factory('svg', function() {
     },
     getSRC: function(name,list){
       return self.getSRC(name,list);
+    }
+  };
+});
+
+//  Factory containing services dealing with csv
+app.factory('csv', function(bookTable) {
+  //For use in returned functions
+  var self = this;
+
+  //Returns csv, iod = if iodSelected is true, if false assumes table by part
+  this.generate = function(table,iod,vrShow,vmShow,headers){
+    var csvData = "data:text/csv;charset=utf-8,";
+    if(iod){
+      csvData += "Element,Entity,Module,Usage,Req,";
+      if(vrShow){
+        csvData +="VR,";
+      }
+      if(vmShow){
+        csvData +="VM,";
+      }
+      csvData += "Name,Comments\n\n";
+      table.forEach(function(row,index){
+        var rowString = '';
+        var comma = ',';
+        rowString += '"' + "'" +  row.element + '"' + comma + row.entity + comma + row.module + comma + row.usage + comma + row.req + comma;
+        if(vrShow){
+          rowString +=row.vr + comma;
+        }
+        if(vmShow){
+          rowString += row.vm + comma;
+        }
+        rowString += row.name + comma;
+
+        var div = document.createElement("div");
+        div.innerHTML = row.desc;
+        var commentText = div.textContent || div.innerText || "";
+        commentText = commentText.replace('"', '""');
+        rowString += '"' + commentText + '"';
+
+        csvData += index < table.length ? rowString + "\n" : rowString;
+      });
+    } else {
+      //this is for book by part
+      headers.forEach(function(th){
+        csvData += th + ",";
+      });
+      csvData += "\n\n";
+      table.forEach(function(row,index){
+        var rowString = '';
+        row.forEach(function(cell,cindex){
+          rowString += headers[cindex] == "Tag" ? '"' + "'" + cell.text + '"' + "," :'"' + cell.text + '"' + ",";
+        });
+        csvData += index <table.length ? rowString + "\n" : rowString;
+      });
+    }
+    return csvData;
+  };
+
+  return {
+    generate: function(table,iod,vrShow,vmShow,headers) {
+      return self.generate(table,iod,vrShow,vmShow,headers);
     }
   };
 });

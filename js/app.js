@@ -4,7 +4,7 @@
 var app = angular.module('posdaJS', ['ngSanitize']);
 
 //  Main controller services include dataDump, IOD, bookTable, svg
-app.controller("posdaCtrl", function($scope,dataDump,IOD,bookTable,render,svg) {
+app.controller("posdaCtrl", function($scope,dataDump,IOD,bookTable,render,svg,csv) {
 
   //stuff that needs to be changed/removed eventually
   $scope.showOnlyRequired = true;
@@ -88,6 +88,7 @@ app.controller("posdaCtrl", function($scope,dataDump,IOD,bookTable,render,svg) {
           $scope.tableData = bookTable.tableData(bookTableData);
         }
         $scope.tableSelected = true;
+        console.log($scope.tableData)
       });
     }
   };
@@ -168,18 +169,9 @@ app.controller("posdaCtrl", function($scope,dataDump,IOD,bookTable,render,svg) {
       }
   };
 
-  /* Work in progress
   $scope.generateCSV = function(){
-    var csvData = "data:text/csv;charset=utf-8,";
-    $scope.tableData.forEach(function(infoArray, index){
 
-      var dataString = '';
-      for (var csvRow in infoArray) {
-        var fieldString = '"' + infoArray[csvRow] + '"';
-        dataString += fieldString + ",";
-      }
-      csvData += index < data.length ? dataString+ "\n" : dataString;
-    });
+    csvData = csv.generate($scope.filteredTable,$scope.iodSelected,$scope.vrShow,$scope.vmShow,$scope.tableHeaders);
     var encodedUri = encodeURI(csvData);
     var link = document.createElement("a");
     link.setAttribute("href", encodedUri);
@@ -188,5 +180,4 @@ app.controller("posdaCtrl", function($scope,dataDump,IOD,bookTable,render,svg) {
 
     link.click();
   };
-  */
 });

@@ -24,7 +24,7 @@
                   </div>
                   <div class="col-xs-2">
                           <center>
-                              <button class="btn csv" ng-show="tableSelected&&inTesting" ng-click="generateCSV()">Download as CSV</button>
+                              <button class="btn csv" ng-show="tableSelected" ng-click="generateCSV()">Download as CSV</button>
                           </center>
                   </div>
                 </div>
@@ -200,7 +200,7 @@
                                     <td ng-if="iodSelected">{{x.name}}</td>
                                     <td ng-bind-html="x.desc" ng-if="iodSelected"></td>
                                 </tr>
-                                <tr ng-repeat="x in filteredTable = (tableData) | limitTo:rowsDisplayed | orderBy:orderByThis" ng-if="bookSelected">
+                                <tr ng-init="loadMoreCheck()" ng-repeat="x in filteredTable = (tableData | filter:tableSearch) | limitTo:rowsDisplayed | orderBy:orderByThis" ng-if="bookSelected">
                                   <td ng-repeat="n in tableData[$index]" rowspan="{{n.rowspan}}" colspan="{{n.colspan}}">{{n.text}}</td>
                                 </tr>
                             </tbody>
