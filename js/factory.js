@@ -458,7 +458,7 @@ app.factory('svg', function() {
 });
 
 //  Factory containing services dealing with csv
-app.factory('csv', function(bookTable) {
+app.factory('csv', function() {
   //For use in returned functions
   var self = this;
 
